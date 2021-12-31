@@ -31,7 +31,8 @@ template.innerHTML = `
         height: 100%;
         width: 100%;
         padding: 0;
-        border: solid 2px #433E49;
+        border-radius: 5px;
+        border: none;
         outline: none;
         background-color: #DBC1AD;
     }
@@ -41,6 +42,7 @@ template.innerHTML = `
     }
 
     /* MAYBE A WEIRD HOST DISABLED STYLE HERE */
+
     #front, #back {
         width: calc(100% - 4px);
         height: calc(100% - 4px);
@@ -54,7 +56,7 @@ template.innerHTML = `
     }
 
     #back {
-        background: #DBC1AD no-repeat center/50% url("./images/m.png")
+        background-color: #DBC1AD
         display: inline-block;
     }
 

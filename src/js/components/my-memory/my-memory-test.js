@@ -31,7 +31,7 @@ template.innerHTML = `
 /**
  * Define custom element.
  */
-customElements.define('my-memory',
+customElements.define('my-memory-test',
 /**
  * Represents a memory game.
  */
