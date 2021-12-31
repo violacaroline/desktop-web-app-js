@@ -14,12 +14,12 @@
   "contributors": [
     "Johan Leitet <johan.leitet@lnu.se>",
     "Mats Loock <mats.loock@lnu.se>",
-    "// TODO: YOUR NAME <YOUR EMAIL>"
+    "Andrea Viola Caroline Åkesson <ca223pw@student.lnu.se>"
   ],
   "license": "MIT",
   "private": true,
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.4",
-    "vite": "^2.6.7"
+    "vite": "^2.7.3"
   }
 }
