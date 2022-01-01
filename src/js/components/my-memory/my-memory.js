@@ -32,6 +32,7 @@ template.innerHTML = `
     my-flip-tile::part(tile-back) {
         border-width: 3px;
         background-color: #DBC1AD;
+        background: url("/js/components/my-memory/images/m.png") no-repeat center/70%;
     }
 </style>
 <div id="container-memory">
@@ -65,6 +66,11 @@ customElements.define('my-memory',
      * @type {HTMLTemplateElement}
      */
     #tile
+
+    /**
+     * Relative path to images.
+     */
+    #relativePathImages = '/js/components/my-memory/images/'
 
     /**
      * Creates an instance of the current type.
@@ -131,13 +137,13 @@ customElements.define('my-memory',
      *
      * @returns {object} - An object of tiles.
      */
-    get tiles () {
-      const tiles = Array.from(this.#gameBoard.children)
+    get flipTiles () {
+      const flipTiles = Array.from(this.#gameBoard.children)
       return {
-        all: tiles,
-        faceUp: tiles.filter(tile => tile.hasAttribute('face-up') && !tile.hasAttribute('hidden')),
-        faceDown: tiles.filter(tile => !tile.hasAttribute('face-up') && !this.hasAttribute('hidden')),
-        hidden: tiles.filter(tile => tile.hasAttribute('hidden'))
+        all: flipTiles,
+        faceUp: flipTiles.filter(tile => tile.hasAttribute('face-up') && !tile.hasAttribute('hidden')),
+        faceDown: flipTiles.filter(tile => !tile.hasAttribute('face-up') && !this.hasAttribute('hidden')),
+        hidden: flipTiles.filter(tile => tile.hasAttribute('hidden'))
       }
     }
 
@@ -161,8 +167,10 @@ customElements.define('my-memory',
       }
 
       // TEST TO ADD IMAGES
-      this.tiles.all.forEach((tile) => {
-        tile.querySelector('img').setAttribute('src', 'images/3.png')
+      this.flipTiles.all.forEach((tile, index) => {
+        console.log(`${this.#relativePathImages + index + '.png'}`)
+        tile.querySelector('img').setAttribute('src', `${this.#relativePathImages + index % (amountTiles / 2) + '.png'}`)
+        console.log(tile)
         tile.faceUp = tile.disabled = tile.hidden = false
       })
     }
