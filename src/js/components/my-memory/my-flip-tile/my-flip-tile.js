@@ -7,77 +7,93 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
     :host {
-        display: block;
-        height: 100px;
-        width: 100px;
+      display: block;
+      height: 100px;
+      width: 100px;
+      position: relative;
+    }
+
+    :host([hidden]) #tile {
+      box-shadow: none;
+      border-style: dotted;
+      border-color: #858585;
+    }
+
+    :host([hidden]) #tile>* {
+      visibility: hidden;
     }
 
     :host([face-up]) #front {
-        display: inline-block;
+      display: inline-block;
     }
 
     :host([face-up]) #back {
-        display: none;
+      display: none;
     }
 
     /* MAYBE A WEIRD HOST HIDDEN STYLE HERE */
 
     :host([hidden]) #tile>* {
-        visibility: hidden;
+      visibility: hidden;
     }
 
     #tile {
-        display: inline-block;
-        height: 100%;
-        width: 100%;
-        padding: 0;
-        border-radius: 5px;
-        border: none;
-        outline: none;
-        background-color: #DBC1AD;
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      background-color: #DBC1AD;
     }
 
     #tile:focus {
-        box-shadow: 0px 0 10px #433E49;
+      box-shadow: 0px 0 10px #433E49;
     }
 
-    /* MAYBE A WEIRD HOST DISABLED STYLE HERE */
+    #tile[disabled] {
+      pointer-events: none;
+      box-shadow: none;
+      border-style: dashed;
+      border-color: #858585;
+    }
 
     #front, #back {
-        width: calc(100% - 4px);
-        height: calc(100% - 4px);
-        border-radius: 8px;
-        margin:2px;
+      width: calc(100% - 4px);
+      height: calc(100% - 4px);
+      border-radius: 8px;
+      margin: 2px;     
     }
 
     #front {
-        background-color: #DBC1AD;
-        display: none;
+      background-color: #DBC1AD;
+      display: none;
     }
 
     #back {
-        background-color: #DBC1AD
-        display: inline-block;
+      background-color: #DBC1AD
+      display: inline-block;
     }
 
     slot {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    /* Styles any content in the slot element.  */
+    /* Styles any content in the slot element */
     slot>* {
-        max-width: 80%;
-        max-height: 80%;
+      max-width: 80%;
+      max-height: 80%;
     }
  
-    /* Styles slotted images.  */
+    /* Styles slotted images */
     ::slotted(img) {
-        max-width: 80%;
-        max-height: 80%;
+      max-width: 90%;
+      max-height: 90%;
     }
 
 
@@ -114,6 +130,7 @@ customElements.define('my-flip-tile',
 
       // Add event listener for 'click'
       this.addEventListener('click', (event) => {
+        console.log('Tile flipped from my-flip-tile')
         this.#flip()
       })
     }
@@ -174,6 +191,7 @@ customElements.define('my-flip-tile',
 
       // Dispatch flip event.
       this.dispatchEvent(new CustomEvent('flip', {
+        bubbles: true,
         detail: { faceUp: this.hasAttribute('face-up') }
       }))
     }

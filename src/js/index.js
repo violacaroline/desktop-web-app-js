@@ -7,6 +7,7 @@
 
 // Import components.
 import './components/my-desktop/index.js'
+import './components/my-window/'
 import './components/my-memory/index.js'
 import './components/my-memory/my-flip-tile/index.js'
 
@@ -16,8 +17,11 @@ const mainContainer = document.querySelector('#main-container')
 // Create and append desktop component.
 // mainContainer.appendChild(document.createElement('my-desktop'))
 
+// Create and append my-window component.
+mainContainer.appendChild(document.createElement('my-window'))
+
 // Create and append my-memory component.
-mainContainer.appendChild(document.createElement('my-memory'))
+// mainContainer.appendChild(document.createElement('my-memory'))
 
 // Create and append a single flip tile.
 // mainContainer.appendChild(document.createElement('my-flip-tile'))

@@ -180,8 +180,6 @@ customElements.define('my-memory',
 
       // UPGRADE PROPERTY
 
-      // EVENT LISTENER FOR FLIPPING THE TILE
-
       // TEST TO ADD TILES
       const amountTiles = 16
       for (let i = 0; i < amountTiles; i++) {
@@ -200,7 +198,11 @@ customElements.define('my-memory',
         tile.faceUp = tile.disabled = tile.hidden = false
       })
 
-      this.checkForMatch()
+      // EVENT LISTENER FOR FLIPPING THE TILE
+      this.#gameBoard.addEventListener('my-flip-tile:flip', () => {
+        console.log('Tile flipped')
+        this.checkForMatch()
+      })
     }
 
     /**
@@ -208,16 +210,51 @@ customElements.define('my-memory',
      */
     checkForMatch () {
       const tiles = this.flipTiles
-      console.log('Tiles', tiles)
+      const tilesDisabled = Array.from(tiles.faceUp)
 
-      const [firstTile, secondTile] = tiles
+      if (tiles.faceUp.length > 1) {
+        tilesDisabled.push(...tiles.faceDown)
+      }
+
+      tilesDisabled.forEach(tile => (tile.setAttribute('disabled', '')))
+
+      const [firstTile, secondTile, ...tilesEnabled] = tilesDisabled
+
+      console.log('First tile:', firstTile)
 
       if (secondTile) {
         const isMatch = firstTile.isMatch(secondTile)
-        const delay = isMatch ? 1000 : 1500
+        const setTimeOut = isMatch ? 2000 : 2500
         window.setTimeout(() => {
-          
-        }) 
+          let event = 'my-memory:tiles-nomatch'
+          if (isMatch) {
+            firstTile.setAttribute('hidden', '')
+            secondTile.setAttribute('hidden', '')
+            event = 'my-memory:tiles-match'
+          } else {
+            firstTile.removeAttribute('face-up')
+            secondTile.removeAttribute('face-up')
+            tilesEnabled.push(firstTile, secondTile)
+          }
+
+          // DISPATCH A NO-MATCH/MATCH EVENT
+          this.dispatchEvent(new CustomEvent(event, {
+            bubbles: true,
+            detail: { firstTile, secondTile }
+          }))
+
+          // CHECK IF ALL TILES ARE HIDDEN - GAME OVER
+          if (tiles.all.every(tile => tile.hidden)) {
+            tiles.all.forEach(tile => (tile.disabled = true))
+            this.dispatchEvent(new CustomEvent('my-memory:game-over', {
+              bubbles: true
+            }))
+
+            this.checkForMatch()
+          } else {
+            tilesEnabled?.forEach(tile => (tile.removeAttribute('disabled')))
+          }
+        }, setTimeOut)
       }
     }
   }
