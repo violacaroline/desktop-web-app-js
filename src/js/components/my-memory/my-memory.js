@@ -9,39 +9,62 @@ import './my-flip-tile/index.js'
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
+    #container-memory {
+      font-family: "Times New Roman", Times, serif
+      font-weight: bold;
+      font-size: 25px;
+      text-align: center;
+    }
+
     :host {
-        --tile-size: 100px;
+      --tile-size: 80px;
     }
 
     #game-board {
-        display: grid;
-        justify-content: center;
-        grid-template-columns: repeat(4, var(--tile-size));
-        gap: 15px;
+      display: grid;
+      justify-content: center;
+      grid-template-columns: repeat(4, var(--tile-size));
+      gap: 15px;
     }
 
     #game-board.small {
-        grid-template-columns: repeat(2, var(--tile-size));
+      grid-template-columns: repeat(2, var(--tile-size));
+    }
+
+    button {
+      background-color: #DBC1AD;
+      font-family: "Times New Roman", Times, serif
+      font-weight: bold;
+      margin: 25px;
+      padding: 10px;
+      border-radius: 3px;
+      border: solid 1px black;
+    }
+
+    button:hover {
+      box-shadow: 0px 0 10px #433E49;
     }
 
     my-flip-tile {
-        width: var(--tile-size);
-        height: var(--tile-size);
+      width: var(--tile-size);
+      height: var(--tile-size);
     }
 
     my-flip-tile::part(tile-back) {
-        border-width: 3px;
-        background-color: #DBC1AD;
-        background: url("/js/components/my-memory/images/m.png") no-repeat center/70%;
+      border-width: 3px;
+      background-color: #DBC1AD;
+      background: url("/js/components/my-memory/images/m.png") no-repeat center/70%;
     }
 </style>
 <div id="container-memory">
+<h1>Memory Game</h1>
 <template id="tile">
     <my-flip-tile>
         <img />
     </my-flip-tile>
 </template>
 <div id="game-board"></div>
+<button>Small 2*2</button><button>Medium 2*4</button><button>Restart</button>
 </div>
 `
 
@@ -166,13 +189,36 @@ customElements.define('my-memory',
         this.#gameBoard.appendChild(tile)
       }
 
+      // TEST TO RANDOMIZE IMAGE ORDER
+      const imageOrder = [...Array(amountTiles).keys()]
+      const randomizedImageOrder = imageOrder.sort((a, b) => 0.5 - Math.random())
+      console.log('Randomized order', randomizedImageOrder)
+
       // TEST TO ADD IMAGES
       this.flipTiles.all.forEach((tile, index) => {
-        console.log(`${this.#relativePathImages + index + '.png'}`)
-        tile.querySelector('img').setAttribute('src', `${this.#relativePathImages + index % (amountTiles / 2) + '.png'}`)
-        console.log(tile)
+        tile.querySelector('img').setAttribute('src', `${this.#relativePathImages + randomizedImageOrder[index] % (amountTiles / 2) + '.png'}`)
         tile.faceUp = tile.disabled = tile.hidden = false
       })
+
+      this.checkForMatch()
+    }
+
+    /**
+     * Check for match, flip/unflip.
+     */
+    checkForMatch () {
+      const tiles = this.flipTiles
+      console.log('Tiles', tiles)
+
+      const [firstTile, secondTile] = tiles
+
+      if (secondTile) {
+        const isMatch = firstTile.isMatch(secondTile)
+        const delay = isMatch ? 1000 : 1500
+        window.setTimeout(() => {
+          
+        }) 
+      }
     }
   }
 )

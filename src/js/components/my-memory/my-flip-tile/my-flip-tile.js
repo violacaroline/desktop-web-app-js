@@ -138,7 +138,6 @@ customElements.define('my-flip-tile',
       // Enable/disable button in shadow DOM
       if ((name === 'disabled' || name === 'hidden') && oldValue !== newValue) {
         // Should disabled attribute be active or not.
-
         const isActive = Boolean(newValue) || newValue === ''
 
         if (isActive) {
@@ -148,6 +147,16 @@ customElements.define('my-flip-tile',
           this.#tile.removeAttribute('disabled')
         }
       }
+    }
+
+    /**
+     * Check if tiles matches.
+     *
+     * @param {*} otherTile - The tile to be compared.
+     * @returns {boolean} - Returns true if second tile has the same content as first.
+     */
+    isMatch (otherTile) {
+      return this.isEqualNode(otherTile)
     }
 
     /**
