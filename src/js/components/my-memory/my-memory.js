@@ -92,6 +92,8 @@ customElements.define('my-memory',
 
     /**
      * Relative path to images.
+     *
+     * @type {string}
      */
     #relativePathImages = '/js/components/my-memory/images/'
 

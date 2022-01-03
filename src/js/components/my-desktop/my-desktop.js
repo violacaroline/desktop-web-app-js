@@ -28,10 +28,35 @@ template.innerHTML = `
 
     #icon-dock {
       background-color: #DBC1AD;
+      white-space: nowrap;
       border-radius: 30px;
       margin: auto;
+      padding: 10px;
       height: 20%;
-      width: 60%;
+      width: 50%;
+      min-width: min-content;
+      min-height: 100px;
+    }
+
+    button {
+      border: 2px solid #433E49;
+      border-radius: 50%;
+      padding: 10px;
+      margin: 10px;
+      height: 90px;
+      width: 90px;
+    }
+
+    button:hover {
+      box-shadow: 0px 0 10px #433E49;
+    }
+
+    #memory-btn {
+      background: url("/js/components/my-desktop/images/memory-icon.png") no-repeat center/70%;
+    }
+
+    #chat-btn {
+      background: url("/js/components/my-desktop/images/chat-icon.png") no-repeat center/70%;
     }
 
     .hidden {
@@ -40,8 +65,10 @@ template.innerHTML = `
 </style>
 <div id="desktop-template">
     <h1>My Desktop</h1>
-    <p>Poop</p>
-    <div id="icon-dock"></div>
+    <p>Play or Chat </p>
+    <div id="icon-dock">
+      <button id="memory-btn"></button><button id="chat-btn"></button><button id="custom-btn"></button>
+    </div>
   </div>
 `
 
