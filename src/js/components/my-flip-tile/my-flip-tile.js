@@ -6,20 +6,18 @@
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
-    :host {
+    :host { /* TA EVENTUELLT BORT */
       display: block;
-      height: 100px;
-      width: 100px;
+      height: 80px;
+      width: 80px;
       position: relative;
     }
 
-    :host([hidden]) #tile {
+    :host([hidden]) #tile { /* TA EVENTUELLT BORT */
       box-shadow: none;
-      border-style: dotted;
-      border-color: #858585;
     }
 
-    :host([hidden]) #tile>* {
+    :host([hidden]) #tile>* { /* TA EVENTUELLT BORT */
       visibility: hidden;
     }
 
@@ -29,12 +27,6 @@ template.innerHTML = `
 
     :host([face-up]) #back {
       display: none;
-    }
-
-    /* MAYBE A WEIRD HOST HIDDEN STYLE HERE */
-
-    :host([hidden]) #tile>* {
-      visibility: hidden;
     }
 
     #tile {
@@ -52,7 +44,7 @@ template.innerHTML = `
       box-shadow: 0px 0 10px #433E49;
     }
 
-    #tile[disabled] {
+    #tile[disabled] { /* TA EVENTUELLT BORT */
       pointer-events: none;
       box-shadow: none;
       border-style: dashed;
@@ -76,7 +68,7 @@ template.innerHTML = `
       display: inline-block;
     }
 
-    slot {
+    slot { /* TA EVENTUELLT BORT */
       width: 100%;
       height: 100%;
       display: flex;
@@ -84,12 +76,6 @@ template.innerHTML = `
       align-items: center;
     }
 
-    /* Styles any content in the slot element */
-    slot>* {
-      max-width: 80%;
-      max-height: 80%;
-    }
- 
     /* Styles slotted images */
     ::slotted(img) {
       max-width: 90%;

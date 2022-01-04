@@ -1,7 +1,7 @@
 /**
  * The memory game web component module.
  */
-import './my-flip-tile/index.js'
+import '../my-flip-tile/'
 
 /**
  * Define template.
@@ -64,7 +64,7 @@ template.innerHTML = `
     </my-flip-tile>
 </template>
 <div id="game-board"></div>
-<button>Small 2*2</button><button>Medium 2*4</button><button>Restart</button>
+<button id="small-btn">Small 2*2</button><button id="medium-btn">Medium 2*4</button><button id="restart-btn">Restart</button>
 </div>
 `
 
@@ -72,9 +72,9 @@ template.innerHTML = `
  * Define custom element.
  */
 customElements.define('my-memory',
-/**
- * Represents a memory game.
- */
+  /**
+   * Represents a memory game.
+   */
   class extends HTMLElement {
     /**
      * The game board element.
@@ -98,6 +98,27 @@ customElements.define('my-memory',
     #relativePathImages = '/js/components/my-memory/images/'
 
     /**
+     * The button representing a small gameboard.
+     *
+     * @type {HTMLButtonElement}
+     */
+    #smallBtn
+
+    /**
+     * The button representing a medium gameboard.
+     *
+     * @type {HTMLButtonElement}
+     */
+    #mediumBtn
+
+    /**
+     * Restart, default gameboard.
+     *
+     * @type {HTMLButtonElement}
+     */
+    #restartBtn
+
+    /**
      * Creates an instance of the current type.
      */
     constructor () {
@@ -109,6 +130,9 @@ customElements.define('my-memory',
       // Get the elements in the shadow root.
       this.#gameBoard = this.shadowRoot.querySelector('#game-board')
       this.#tile = this.shadowRoot.querySelector('#tile')
+      this.#mediumBtn = this.shadowRoot.querySelector('#medium-btn')
+      this.#smallBtn = this.shadowRoot.querySelector('#small-btn')
+      this.#restartBtn = this.shadowRoot.querySelector('#restart-btn')
     }
 
     /**
@@ -176,14 +200,42 @@ customElements.define('my-memory',
      * Called when element is inserted in DOM.
      */
     connectedCallback () {
-      if (!this.hasAttribute('gameboardsize')) {
-        this.setAttribute('gameboardsize', 'large') // Large does not exist???
+      this.populateGameboard()
+
+      // Listen for gameboard changes
+      this.#smallBtn.addEventListener('click', () => {
+        this.setAttribute('gameboardsize', 'small')
+        this.#gameBoard.classList.add('small')
+        this.populateGameboard()
+      })
+      this.#mediumBtn.addEventListener('click', () => {
+        this.setAttribute('gameboardsize', 'medium')
+        this.#gameBoard.classList.remove('small')
+        this.populateGameboard()
+      })
+      this.#restartBtn.addEventListener('click', () => {
+        this.removeAttribute('gameboardsize')
+        this.populateGameboard()
+      })
+
+      // Listen for flip events.
+      this.#gameBoard.addEventListener('flip', () => {
+        console.log('Some shit just flipped from Memory')
+        const disabledTiles = this.disableTiles()
+        this.checkIfMatch(disabledTiles)
+      })
+    }
+
+    /**
+     * Populate the gameboard.
+     */
+    populateGameboard () {
+      while (this.#gameBoard.firstChild) {
+        this.#gameBoard.removeChild(this.#gameBoard.lastChild)
       }
-
-      // UPGRADE PROPERTY
-
+      const { width, height } = this.gameSize()
+      const amountTiles = width * height
       // TEST TO ADD TILES
-      const amountTiles = 16
       for (let i = 0; i < amountTiles; i++) {
         const tile = this.#tile.content.cloneNode(true)
         this.#gameBoard.appendChild(tile)
@@ -192,71 +244,78 @@ customElements.define('my-memory',
       // TEST TO RANDOMIZE IMAGE ORDER
       const imageOrder = [...Array(amountTiles).keys()]
       const randomizedImageOrder = imageOrder.sort((a, b) => 0.5 - Math.random())
-      console.log('Randomized order', randomizedImageOrder)
 
       // TEST TO ADD IMAGES
       this.flipTiles.all.forEach((tile, index) => {
         tile.querySelector('img').setAttribute('src', `${this.#relativePathImages + randomizedImageOrder[index] % (amountTiles / 2) + '.png'}`)
         tile.faceUp = tile.disabled = tile.hidden = false
       })
-
-      // EVENT LISTENER FOR FLIPPING THE TILE
-      this.#gameBoard.addEventListener('my-flip-tile:flip', () => {
-        console.log('Tile flipped')
-        this.checkForMatch()
-      })
     }
 
     /**
-     * Check for match, flip/unflip.
+     * Disable tiles when flipped tiles are two.
+     *
+     * @returns {Array} - An array of disabled flip tiles.
      */
-    checkForMatch () {
-      const tiles = this.flipTiles
-      const tilesDisabled = Array.from(tiles.faceUp)
+    disableTiles () {
+      const flipTiles = this.flipTiles
+      const disableFlipTiles = Array.from(flipTiles.faceUp)
 
-      if (tiles.faceUp.length > 1) {
-        tilesDisabled.push(...tiles.faceDown)
+      if (flipTiles.faceUp.length > 1) {
+        console.log('2 tiles has been flipped')
+        disableFlipTiles.push(...flipTiles.faceDown)
       }
 
-      tilesDisabled.forEach(tile => (tile.setAttribute('disabled', '')))
+      disableFlipTiles.forEach(tile => tile.setAttribute('disabled', ''))
 
-      const [firstTile, secondTile, ...tilesEnabled] = tilesDisabled
+      return disableFlipTiles
+    }
 
-      console.log('First tile:', firstTile)
+    /**
+     * Is match?
+     *
+     * @param {Array} disabledTiles - An array of disabled tiles.
+     */
+    checkIfMatch (disabledTiles) {
+      const flipTiles = this.flipTiles
+      const [firstTile, secondTile, ...enableFlipTiles] = disabledTiles
 
+      // Set a timer to hide or flip back tiles
       if (secondTile) {
         const isMatch = firstTile.isMatch(secondTile)
-        const setTimeOut = isMatch ? 2000 : 2500
+        const timer = isMatch ? 1000 : 1200
+
         window.setTimeout(() => {
-          let event = 'my-memory:tiles-nomatch'
+          let nameEvent = 'no-match'
           if (isMatch) {
             firstTile.setAttribute('hidden', '')
             secondTile.setAttribute('hidden', '')
-            event = 'my-memory:tiles-match'
+            nameEvent = 'match'
           } else {
             firstTile.removeAttribute('face-up')
             secondTile.removeAttribute('face-up')
-            tilesEnabled.push(firstTile, secondTile)
+            enableFlipTiles.push(firstTile, secondTile)
           }
 
-          // DISPATCH A NO-MATCH/MATCH EVENT
-          this.dispatchEvent(new CustomEvent(event, {
+          this.dispatchEvent(new CustomEvent(nameEvent, {
             bubbles: true,
             detail: { firstTile, secondTile }
           }))
 
-          // CHECK IF ALL TILES ARE HIDDEN - GAME OVER
-          if (tiles.all.every(tile => tile.hidden)) {
-            tiles.all.forEach(tile => (tile.disabled = true))
-            this.dispatchEvent(new CustomEvent('my-memory:game-over', {
+          // Player has won
+          if (flipTiles.all.every(tile => tile.hidden)) {
+            flipTiles.all.forEach(tile => (tile.disabled = true))
+            this.dispatchEvent(new CustomEvent('playerWon', {
               bubbles: true
             }))
-
-            this.checkForMatch()
+            console.log('You won maddafakka')
+            // Repopulate the board
+            this.populateGameboard()
           } else {
-            tilesEnabled?.forEach(tile => (tile.removeAttribute('disabled')))
+            // Enable tiles.
+            enableFlipTiles.forEach(tile => tile.removeAttribute('disabled'))
           }
-        }, setTimeOut)
+        }, timer)
       }
     }
   }
