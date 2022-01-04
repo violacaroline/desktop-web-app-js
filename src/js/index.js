@@ -15,10 +15,10 @@ import './components/my-memory/my-flip-tile/index.js'
 const mainContainer = document.querySelector('#main-container')
 
 // Create and append desktop component.
-// mainContainer.appendChild(document.createElement('my-desktop'))
+mainContainer.appendChild(document.createElement('my-desktop'))
 
 // Create and append my-window component.
-mainContainer.appendChild(document.createElement('my-window'))
+// mainContainer.appendChild(document.createElement('my-window'))
 
 // Create and append my-memory component.
 // mainContainer.appendChild(document.createElement('my-memory'))

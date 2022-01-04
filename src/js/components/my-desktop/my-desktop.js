@@ -1,6 +1,7 @@
 /**
  * The desktop web component module.
  */
+import '../my-window/'
 
 // Define template.
 const template = document.createElement('template')
@@ -93,6 +94,13 @@ customElements.define('my-desktop',
     #iconDock
 
     /**
+     * The memory game button.
+     *
+     * @type {HTMLButtonElement}
+     */
+    #memoryBtn
+
+    /**
      * Creates an instance of the desktop element.
      */
     constructor () {
@@ -104,6 +112,18 @@ customElements.define('my-desktop',
       // Get elements in shadowroot.
       this.#desktopTemplate = this.shadowRoot.querySelector('#desktop-template') // TA EVENTUELLT BORT DENNA?
       this.#iconDock = this.shadowRoot.querySelector('#icon-dock')
+      this.#memoryBtn = this.shadowRoot.querySelector('#memory-btn')
+    }
+
+    /**
+     * Called when element is inserted in DOM.
+     */
+    connectedCallback () {
+      console.log(this.#memoryBtn)
+      this.#memoryBtn.addEventListener('click', () => {
+        console.log('Desktop', this.#desktopTemplate)
+        this.#desktopTemplate.appendChild(document.createElement('my-window'))
+      })
     }
   }
 )
