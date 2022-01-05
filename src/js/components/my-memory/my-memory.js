@@ -272,7 +272,7 @@ customElements.define('my-memory',
     }
 
     /**
-     * Is match?
+     * Determine whether flip tiles facing up matches.
      *
      * @param {Array} disabledTiles - An array of disabled tiles.
      */
