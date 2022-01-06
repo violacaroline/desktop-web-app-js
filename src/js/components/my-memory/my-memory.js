@@ -10,14 +10,17 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
     #container-memory {
+      background-color: #F3E8EB;
       font-family: "Times New Roman", Times, serif
       font-weight: bold;
-      font-size: 25px;
+      font-size: 20px;
+      max-width: 500px;
+      max-height: 500px;
       text-align: center;
     }
 
     :host {
-      --tile-size: 80px;
+      --tile-size: 60px;
     }
 
     #game-board {
@@ -36,7 +39,7 @@ template.innerHTML = `
       font-family: "Times New Roman", Times, serif
       font-weight: bold;
       margin: 25px;
-      padding: 10px;
+      padding: 7px;
       border-radius: 3px;
       border: solid 1px black;
     }

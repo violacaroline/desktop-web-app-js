@@ -2,6 +2,7 @@
  * The desktop web component module.
  */
 import '../my-window/'
+import '../my-memory/'
 
 // Define template.
 const template = document.createElement('template')
@@ -122,7 +123,8 @@ customElements.define('my-desktop',
       console.log(this.#memoryBtn)
       this.#memoryBtn.addEventListener('click', () => {
         console.log('Desktop', this.#desktopTemplate)
-        this.#desktopTemplate.appendChild(document.createElement('my-window'))
+        const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))
+        currentWindow.appendChild(document.createElement('my-memory'))
       })
     }
   }

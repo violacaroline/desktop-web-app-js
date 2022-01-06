@@ -1,6 +1,7 @@
 /**
  * The my-window web component module.
  */
+import '../my-memory/'
 
 // Define template
 const template = document.createElement('template')
@@ -15,6 +16,10 @@ template.innerHTML = `
    width: 600px;
    margin: auto;
    border: solid 1px #433E49;
+  }
+
+  #container-window:focus {
+    z-index: 1;
   }
 
   #menu-bar {
@@ -102,7 +107,7 @@ customElements.define('my-window',
         this.mouseMoveEvent(event)
       }, true)
 
-      this.#menuBar.addEventListener('mouseup', (event) => {
+      window.addEventListener('mouseup', (event) => {
         this.mouseUp(event)
       }, true)
 
