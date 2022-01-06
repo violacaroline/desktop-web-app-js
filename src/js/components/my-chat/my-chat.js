@@ -16,8 +16,7 @@ template.innerHTML = `
     text-align: center;
     justify-content: center;
     size: min-content;
-    /* height: 500px;
-    width: 500px; */
+    width: 500px;
   }
 
   h1 {
@@ -32,6 +31,7 @@ template.innerHTML = `
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     margin-bottom: 20px;
+    line-height: 1.5;
     padding: 10px; 
     height: 200px;
     width: 250px;
@@ -148,6 +148,13 @@ customElements.define('my-chat',
     #sendMsgBtn
 
     /**
+     * Create websocket.
+     *
+     * @type {WebSocket}
+     */
+    #socket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket')
+
+    /**
      * Users name.
      *
      * @type {string}
@@ -177,52 +184,49 @@ customElements.define('my-chat',
      * Called when element is inserted in DOM.
      */
     connectedCallback () {
-      // CREATE SOCKET
-      const socket = new window.WebSocket('wss://courselab.lnu.se/message-app/socket')
+      // NOT THE RIGHT WAY???
 
-      // DATA OBJECT
-      const data = {
-        type: 'message',
-        data: '',
-        username: this.#inputArea.value,
-        key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
-      }
-
-      // LISTEN FOR OPEN SOCKET EVENT
-      socket.addEventListener('open', () => {
-        console.log('Yay, open!')
-      })
-
-      // SAVE DATA
-      let poop
-
+      // if (window.localStorage.getItem('user-name')) {
+      //   this.#nameUi.classList.add('hidden')
+      //   this.#messageUi.classList.remove('hidden')
+      // }
       // SEND NAME
       this.#sendBtn.addEventListener('click', () => {
         this.#userName = this.#inputArea.value
-        console.log(this.#userName)
         this.#nameUi.classList.add('hidden')
         this.#messageUi.classList.remove('hidden')
       })
+      // DATA OBJECT
+      let parsedData = {
+        type: 'message',
+        data: '',
+        username: '',
+        key: ''
+      }
 
-      // LISTEN FOR MESSAGE EVENT
-      socket.addEventListener('message', (event) => {
-        poop = JSON.parse(event.data)
+      // LISTEN FOR OPEN SOCKET EVENT
+      this.#socket.addEventListener('open', () => {
+        console.log('Yay, open!')
+        // LISTEN FOR MESSAGE EVENT
+        this.#socket.addEventListener('message', (event) => {
+          parsedData = JSON.parse(event.data)
 
-        if (poop.type === 'heartbeat') {
-          console.log('HEARTBEAT')
-        } else {
-          this.showMessage(`${poop.username} says ${poop.data}`)
-          console.log(poop)
-        }
-      })
+          if (parsedData.data === '') {
+            console.log('Server does shit, but message empty you n00b!')
+          } else {
+            this.showMessage(`${parsedData.username} says ${parsedData.data}`)
+          }
+        })
 
-      // SEND MESSAGE
-      this.#sendMsgBtn.addEventListener('click', () => {
-        console.log(this.#userName)
-        poop.username = this.#userName
-        data.data = this.#textAreaSend.value
-        socket.send(JSON.stringify(data))
-        this.#textAreaSend.value = ''
+        // SEND MESSAGE
+        this.#sendMsgBtn.addEventListener('click', () => {
+          parsedData.username = this.#userName || window.localStorage.getItem('user-name').slice(1, -1) // WHY DOES IT CUT OUT THE NAME MAKING USER-NAME UNDEFINED?
+          window.localStorage.setItem('user-name', JSON.stringify(this.#userName))
+          parsedData.data = this.#textAreaSend.value
+          parsedData.key = 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
+          this.#socket.send(JSON.stringify(parsedData))
+          this.#textAreaSend.value = ''
+        })
       })
     }
 
@@ -230,7 +234,7 @@ customElements.define('my-chat',
      * Called when element is removed from DOM.
      */
     disconnectedCallback () {
-      // WEBSOCKET IN A CLASS VARIABEL? tO BE ABLE TO REACH IT EVERYWHERE.
+      this.#socket.close()
     }
 
     /**

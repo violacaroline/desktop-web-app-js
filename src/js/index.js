@@ -25,7 +25,7 @@ const mainContainer = document.querySelector('#main-container')
 // mainContainer.appendChild(document.createElement('my-memory'))
 
 // Create and append my-chat component
-// mainContainer.appendChild(document.createElement('my-chat'))
+mainContainer.appendChild(document.createElement('my-chat'))
 
 // Create and append a single flip tile.
 // mainContainer.appendChild(document.createElement('my-flip-tile'))
