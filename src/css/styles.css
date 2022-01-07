@@ -1,8 +1,13 @@
 body {
-	background: #9c8288; /* #F3E8EB */
+	background: #F3E8EB; /* #F3E8EB */ /* #DBC1AD */
+  margin: 0;
+  padding: 0;
+  height: 100vh;
 }
 
 #main-container {
+  height: 100vh;
+  width: 100vh;
   padding: 10px;
   justify-content: center;
   position: relative;

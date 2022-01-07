@@ -13,7 +13,7 @@ import './components/my-flip-tile/index.js'
 import './components/my-chat'
 
 // Get document body.
-const mainContainer = document.querySelector('#main-container')
+// const mainContainer = document.querySelector('#main-container')
 
 // Create and append desktop component.
 // mainContainer.appendChild(document.createElement('my-desktop'))
@@ -25,7 +25,7 @@ const mainContainer = document.querySelector('#main-container')
 // mainContainer.appendChild(document.createElement('my-memory'))
 
 // Create and append my-chat component
-mainContainer.appendChild(document.createElement('my-chat'))
+// mainContainer.appendChild(document.createElement('my-chat'))
 
 // Create and append a single flip tile.
 // mainContainer.appendChild(document.createElement('my-flip-tile'))

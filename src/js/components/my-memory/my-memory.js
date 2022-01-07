@@ -10,13 +10,14 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
     #container-memory {
-      background-color: #F3E8EB;
+      background-color: #e6d1c1;
       font-family: "Times New Roman", Times, serif
       font-weight: bold;
       font-size: 20px;
       max-width: 500px;
       max-height: 500px;
       text-align: center;
+      margin: 0 auto;
     }
 
     :host {
@@ -55,11 +56,10 @@ template.innerHTML = `
 
     my-flip-tile::part(tile-back) {
       border-width: 3px;
-      background-color: #DBC1AD;
       background: url("/js/components/my-memory/images/m.png") no-repeat center/70%;
     }
 </style>
-<div id="container-memory">
+<div slot="content" id="container-memory">
 <h1>Memory Game</h1>
 <template id="tile">
     <my-flip-tile>
@@ -175,7 +175,7 @@ customElements.define('my-memory',
         width: 4,
         height: 4
       }
-
+      console.log('Gameboard', this.#gameBoard)
       if (this.gameBoardSize === 'small') {
         gameSize.width = gameSize.height = 2
       } else if (this.gameBoardSize === 'medium') {
@@ -218,6 +218,7 @@ customElements.define('my-memory',
       })
       this.#restartBtn.addEventListener('click', () => {
         this.removeAttribute('gameboardsize')
+        this.#gameBoard.classList.remove('small')
         this.populateGameboard()
       })
 
@@ -265,7 +266,6 @@ customElements.define('my-memory',
       const disableFlipTiles = Array.from(flipTiles.faceUp)
 
       if (flipTiles.faceUp.length > 1) {
-        console.log('2 tiles has been flipped')
         disableFlipTiles.push(...flipTiles.faceDown)
       }
 

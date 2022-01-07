@@ -2,6 +2,7 @@
  * The my-window web component module.
  */
 import '../my-memory/'
+import '../my-chat/'
 
 // Define template
 const template = document.createElement('template')
@@ -10,10 +11,11 @@ template.innerHTML = `
   #container-window {
    position: absolute;
    justify-content: center;
-   background-color: #F3E8EB;
+   background-color: #e6d1c1;
+   text-align: center;
    padding: 5px;
-   height: 600px;
-   width: 600px;
+   height: 500px;
+   width: 500px;
    margin: auto;
    border: solid 1px #433E49;
   }
@@ -31,7 +33,7 @@ template.innerHTML = `
 
   #close-btn {
     position: absolute;
-    background-color: #F3E8EB;
+    background-color: #e6d1c1;
     font-family: "Times New Roman", Times, serif;
     top: 3px;
     right: 2px;
@@ -46,7 +48,8 @@ template.innerHTML = `
 <div id="container-window">
   <div id="menu-bar">
   <button id="close-btn"> X </button>
-</div>
+  </div>
+  <slot name="content"><slot>
 </div>
 `
 // Define custom element.

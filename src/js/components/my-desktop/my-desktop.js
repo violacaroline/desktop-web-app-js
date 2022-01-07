@@ -3,23 +3,19 @@
  */
 import '../my-window/'
 import '../my-memory/'
+import '../my-chat/'
 
 // Define template.
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
-    body {
-      height: 100vh;      
-    }
-
     #desktop-template {
-      border: 4px solid #433E49;
+      /* border: 4px solid #433E49; */
       background-color: #F3E8EB;
       text-align: center;
       font-size: 50px;
       height: 100vh;
-      padding: 20px;
-      margin: 20px;
+      padding: 20px;      
     }
 
     h1 {
@@ -47,6 +43,7 @@ template.innerHTML = `
       margin: 10px;
       height: 90px;
       width: 90px;
+      box-shadow: 0px 0 5px #433E49;
     }
 
     button:hover {
@@ -102,6 +99,11 @@ customElements.define('my-desktop',
     #memoryBtn
 
     /**
+     * The chat app button.
+     */
+    #chatBtn
+
+    /**
      * Creates an instance of the desktop element.
      */
     constructor () {
@@ -112,19 +114,25 @@ customElements.define('my-desktop',
 
       // Get elements in shadowroot.
       this.#desktopTemplate = this.shadowRoot.querySelector('#desktop-template') // TA EVENTUELLT BORT DENNA?
-      this.#iconDock = this.shadowRoot.querySelector('#icon-dock')
+      this.#iconDock = this.shadowRoot.querySelector('#icon-dock') // TA EVENTUELLT BORT DENNA?
       this.#memoryBtn = this.shadowRoot.querySelector('#memory-btn')
+      this.#chatBtn = this.shadowRoot.querySelector('#chat-btn')
     }
 
     /**
      * Called when element is inserted in DOM.
      */
     connectedCallback () {
-      console.log(this.#memoryBtn)
+      // Handle memory button clicks.
       this.#memoryBtn.addEventListener('click', () => {
-        console.log('Desktop', this.#desktopTemplate)
         const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))
         currentWindow.appendChild(document.createElement('my-memory'))
+      })
+
+      // Handle chat button clicks.
+      this.#chatBtn.addEventListener('click', () => {
+        const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))
+        currentWindow.appendChild(document.createElement('my-chat'))
       })
     }
   }

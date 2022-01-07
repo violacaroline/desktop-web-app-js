@@ -7,24 +7,26 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
   #container-chat {
-    background-color: #DBC1AD;
+    background-color: #e6d1c1;
     display: block;
     font-family: "Times New Roman", Times, serif
     font-weight: bold;
-    font-size: 25px;
+    font-size: 20px;
     padding: 10px;
     text-align: center;
     justify-content: center;
+    margin: 0 auto;
     size: min-content;
-    width: 500px;
+    width: 400px;
   }
 
   h1 {
-    margin: 10px;
+    margin-top: 0;
+    margin-bottom: 10px;
   }
 
   p {
-    font-size: 20px;
+    font-size: 15px;
   }
 
   #text-area {
@@ -33,8 +35,8 @@ template.innerHTML = `
     margin-bottom: 20px;
     line-height: 1.5;
     padding: 10px; 
-    height: 200px;
-    width: 250px;
+    height: 170px;
+    width: 300px;
     resize: none;
   }
 
@@ -43,7 +45,7 @@ template.innerHTML = `
     display: block;
     padding: 10px;
     margin: 0 auto;
-    width: 250px;
+    width: 300px;
     resize: none;
   }
 
@@ -52,6 +54,7 @@ template.innerHTML = `
     display: block;
     padding: 10px;
     margin: 0 auto;
+    margin-top: 50px;
   }
 
   button {
