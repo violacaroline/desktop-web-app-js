@@ -10,6 +10,8 @@ template.innerHTML = `
 <style>
   #container-window {
    position: absolute;
+   top: 30px;
+   left: 30px;
    justify-content: center;
    background-color: #F3E8EB;
    text-align: center;
@@ -17,6 +19,7 @@ template.innerHTML = `
    height: 500px;
    width: 500px;
    margin: auto;
+   overflow: hidden;
    border: solid 1px #433E49;
   }
 

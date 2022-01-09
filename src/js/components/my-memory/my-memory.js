@@ -26,13 +26,26 @@ template.innerHTML = `
 
     #game-board {
       display: grid;
-      justify-content: center;
+      width: min-content;
+      margin: 0 auto;
       grid-template-columns: repeat(4, var(--tile-size));
-      gap: 15px;
+      gap: 15px;   
     }
 
     #game-board.small {
       grid-template-columns: repeat(2, var(--tile-size));
+    }
+
+    #attempts {
+      position: absolute;
+      max-width: min-content;
+      font-size: 15px;
+    }
+
+    #stop-watch { 
+      position: absolute;
+      max-width: min-content;
+      font-size: 15px; 
     }
 
     button {
@@ -40,13 +53,17 @@ template.innerHTML = `
       font-family: "Times New Roman", Times, serif
       font-weight: bold;
       margin: 25px;
-      padding: 7px;
+      padding: 5px;
       border-radius: 3px;
       border: solid 1px black;
     }
 
     button:hover {
       box-shadow: 0px 0 10px #433E49;
+    }
+
+    .hidden {
+      display: none;
     }
 
     my-flip-tile {
@@ -66,7 +83,9 @@ template.innerHTML = `
         <img />
     </my-flip-tile>
 </template>
+<p id="attempts" class="hidden"></p>
 <div id="game-board"></div>
+<p id="stop-watch"></p>
 <button id="small-btn">Small 2*2</button><button id="medium-btn">Medium 2*4</button><button id="restart-btn">Restart</button>
 </div>
 `
@@ -101,6 +120,20 @@ customElements.define('my-memory',
     #relativePathImages = '/js/components/my-memory/images/'
 
     /**
+     * Displays amount of attempts per gameround
+     *
+     * @type {HTMLParagraphElement}
+     */
+    #displayAttempts
+
+    /**
+     * Amount of attempts.
+     *
+     * @type {number} - The number of attempts.
+     */
+    #amountAttempts = 1
+
+    /**
      * The button representing a small gameboard.
      *
      * @type {HTMLButtonElement}
@@ -133,6 +166,7 @@ customElements.define('my-memory',
       // Get the elements in the shadow root.
       this.#gameBoard = this.shadowRoot.querySelector('#game-board')
       this.#tile = this.shadowRoot.querySelector('#tile')
+      this.#displayAttempts = this.shadowRoot.querySelector('#attempts')
       this.#mediumBtn = this.shadowRoot.querySelector('#medium-btn')
       this.#smallBtn = this.shadowRoot.querySelector('#small-btn')
       this.#restartBtn = this.shadowRoot.querySelector('#restart-btn')
@@ -207,16 +241,22 @@ customElements.define('my-memory',
 
       // Listen for gameboard changes
       this.#smallBtn.addEventListener('click', () => {
+        this.#displayAttempts.classList.add('hidden')
+        this.#amountAttempts = 1
         this.setAttribute('gameboardsize', 'small')
         this.#gameBoard.classList.add('small')
         this.populateGameboard()
       })
       this.#mediumBtn.addEventListener('click', () => {
+        this.#displayAttempts.classList.add('hidden')
+        this.#amountAttempts = 1
         this.setAttribute('gameboardsize', 'medium')
         this.#gameBoard.classList.remove('small')
         this.populateGameboard()
       })
       this.#restartBtn.addEventListener('click', () => {
+        this.#displayAttempts.classList.add('hidden')
+        this.#amountAttempts = 1
         this.removeAttribute('gameboardsize')
         this.#gameBoard.classList.remove('small')
         this.populateGameboard()
@@ -318,8 +358,23 @@ customElements.define('my-memory',
             // Enable tiles.
             enableFlipTiles.forEach(tile => tile.removeAttribute('disabled'))
           }
+
+          // Display amount of attempts
+          this.getAmountAttempts()
         }, timer)
       }
     }
+
+    /**
+     * Count amount of attempts and display it.
+     */
+    getAmountAttempts () {
+      this.#displayAttempts.classList.remove('hidden')
+      this.#displayAttempts.textContent = `Attempts: ${this.#amountAttempts++}`
+    }
+
+    /**
+     * Count players time.
+     */
   }
 )

@@ -87,7 +87,7 @@ template.innerHTML = `
   <button id="send-btn">Send</button>
   </div>
   <div id="message-ui" class="hidden">
-  <textarea id="text-area"></textarea>
+  <textarea readonly tabindex="-1" id="text-area"></textarea>
   <textarea placeholder="Type your message" id="text-area-send"></textarea>
   <button id="send-msg-btn">Send</button>
   </div>  
@@ -235,6 +235,11 @@ customElements.define('my-chat',
           this.#textAreaSend.value = ''
         })
       })
+
+      // Prevent focus on text area displaying messages.
+      this.#textArea.addEventListener('click', (event) => {
+        this.preventFocus(event)
+      })
     }
 
     /**
@@ -242,6 +247,16 @@ customElements.define('my-chat',
      */
     disconnectedCallback () {
       this.#socket.close()
+    }
+
+    /**
+     * Prevent text area focus.
+     *
+     * @param {event} event - The click event.
+     */
+    preventFocus (event) {
+      event.preventDefault()
+      event.currentTarget.blur()
     }
 
     /**

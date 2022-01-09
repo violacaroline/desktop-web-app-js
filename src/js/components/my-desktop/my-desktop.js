@@ -24,6 +24,10 @@ template.innerHTML = `
       font-size: 150%;
     }
 
+    p {
+      white-space: nowrap;
+    }
+
     #icon-dock {
       background-color: #DBC1AD;
       white-space: nowrap;
@@ -68,7 +72,7 @@ template.innerHTML = `
 </style>
 <div id="desktop-template">
     <h1>My Desktop</h1>
-    <p>Play | Chat | Advice</p>
+    <p>Memory | Chat | Advice</p>
     <div id="icon-dock">
       <button id="memory-btn"></button><button id="chat-btn"></button><button id="advice-btn"></button>
     </div>
@@ -104,11 +108,15 @@ customElements.define('my-desktop',
 
     /**
      * The chat app button.
+     *
+     * @type {HTMLButtonElement}
      */
     #chatBtn
 
     /**
      * The advice app button.
+     *
+     * @type {HTMLButtonElement}
      */
     #adviceBtn
 
