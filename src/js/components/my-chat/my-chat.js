@@ -13,11 +13,12 @@ template.innerHTML = `
     font-weight: bold;
     font-size: 20px;
     padding: 10px;
+    border-radius: 5px;
     text-align: center;
     justify-content: center;
-    margin: 0 auto;
-    size: min-content;
-    width: 400px;
+    margin: auto auto;
+    height: 430px;
+    width: 470px;
   }
 
   h1 {
@@ -58,7 +59,7 @@ template.innerHTML = `
   }
 
   button {
-      background-color: #fff;
+      background-color: #e6d1c1;
       font-family: "Times New Roman", Times, serif
       font-weight: bold;
       margin: 20px;
@@ -89,8 +90,7 @@ template.innerHTML = `
   <textarea id="text-area"></textarea>
   <textarea placeholder="Type your message" id="text-area-send"></textarea>
   <button id="send-msg-btn">Send</button>
-  </div>
-  
+  </div>  
 </div>
 `
 /**
@@ -195,9 +195,13 @@ customElements.define('my-chat',
       // }
       // SEND NAME
       this.#sendBtn.addEventListener('click', () => {
-        this.#userName = this.#inputArea.value
-        this.#nameUi.classList.add('hidden')
-        this.#messageUi.classList.remove('hidden')
+        if (this.#inputArea.value) {
+          this.#userName = this.#inputArea.value
+          this.#nameUi.classList.add('hidden')
+          this.#messageUi.classList.remove('hidden')
+        } else {
+          this.#inputArea.setAttribute('placeholder', 'Try again')
+        }
       })
       // DATA OBJECT
       let parsedData = {

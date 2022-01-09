@@ -58,15 +58,19 @@ template.innerHTML = `
       background: url("/js/components/my-desktop/images/chat-icon.png") no-repeat center/70%;
     }
 
+    #advice-btn {
+      background: url("/js/components/my-desktop/images/advice-icon.png") no-repeat center/70%;
+    }
+
     .hidden {
       display: none;
     }
 </style>
 <div id="desktop-template">
     <h1>My Desktop</h1>
-    <p>Play or Chat </p>
+    <p>Play | Chat | Advice</p>
     <div id="icon-dock">
-      <button id="memory-btn"></button><button id="chat-btn"></button><button id="custom-btn"></button>
+      <button id="memory-btn"></button><button id="chat-btn"></button><button id="advice-btn"></button>
     </div>
   </div>
 `
@@ -104,6 +108,11 @@ customElements.define('my-desktop',
     #chatBtn
 
     /**
+     * The advice app button.
+     */
+    #adviceBtn
+
+    /**
      * Creates an instance of the desktop element.
      */
     constructor () {
@@ -117,6 +126,7 @@ customElements.define('my-desktop',
       this.#iconDock = this.shadowRoot.querySelector('#icon-dock') // TA EVENTUELLT BORT DENNA?
       this.#memoryBtn = this.shadowRoot.querySelector('#memory-btn')
       this.#chatBtn = this.shadowRoot.querySelector('#chat-btn')
+      this.#adviceBtn = this.shadowRoot.querySelector('#advice-btn')
     }
 
     /**
@@ -133,6 +143,12 @@ customElements.define('my-desktop',
       this.#chatBtn.addEventListener('click', () => {
         const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))
         currentWindow.appendChild(document.createElement('my-chat'))
+      })
+
+      // Handle advice button clicks.
+      this.#adviceBtn.addEventListener('click', () => {
+        const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))
+        currentWindow.appendChild(document.createElement('my-advice'))
       })
     }
   }

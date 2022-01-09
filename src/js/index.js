@@ -6,11 +6,12 @@
  */
 
 // Import components.
-import './components/my-desktop/index.js'
+import './components/my-desktop/'
 import './components/my-window/'
-import './components/my-memory/index.js'
-import './components/my-flip-tile/index.js'
-import './components/my-chat'
+import './components/my-memory/'
+import './components/my-flip-tile/'
+import './components/my-chat/'
+import './components/my-advice/'
 
 // Get document body.
 // const mainContainer = document.querySelector('#main-container')
@@ -21,11 +22,14 @@ import './components/my-chat'
 // Create and append my-window component.
 // mainContainer.appendChild(document.createElement('my-window'))
 
-// Create and append my-memory component.
-// mainContainer.appendChild(document.createElement('my-memory'))
-
 // Create and append my-chat component
 // mainContainer.appendChild(document.createElement('my-chat'))
 
+// Create and append my-memory component.
+// mainContainer.appendChild(document.createElement('my-memory'))
+
 // Create and append a single flip tile.
 // mainContainer.appendChild(document.createElement('my-flip-tile'))
+
+// Create and append my-advice component.
+// mainContainer.appendChild(document.createElement('my-advice'))

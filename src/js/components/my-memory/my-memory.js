@@ -10,7 +10,7 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
     #container-memory {
-      background-color: #e6d1c1;
+      background-color: #F3E8EB;
       font-family: "Times New Roman", Times, serif
       font-weight: bold;
       font-size: 20px;
@@ -36,7 +36,7 @@ template.innerHTML = `
     }
 
     button {
-      background-color: #DBC1AD;
+      background-color: #e6d1c1;
       font-family: "Times New Roman", Times, serif
       font-weight: bold;
       margin: 25px;

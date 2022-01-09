@@ -11,7 +11,7 @@ template.innerHTML = `
   #container-window {
    position: absolute;
    justify-content: center;
-   background-color: #e6d1c1;
+   background-color: #F3E8EB;
    text-align: center;
    padding: 5px;
    height: 500px;
@@ -21,11 +21,12 @@ template.innerHTML = `
   }
 
   #container-window:focus {
-    z-index: 1;
+    z-index: 100;
   }
 
   #menu-bar {
     position: relative;
+    background-color: #e6d1c1;
     border: solid 1px #433E49;
     height: 30px;
     margin: 5px;
@@ -112,6 +113,11 @@ customElements.define('my-window',
 
       window.addEventListener('mouseup', (event) => {
         this.mouseUp(event)
+      }, true)
+
+      this.#containerWindow.addEventListener('click', () => {
+        this.#containerWindow.focus()
+        console.log('Window should have focus')
       }, true)
 
       this.#closeButton.addEventListener('click', () =>
