@@ -85,7 +85,7 @@ template.innerHTML = `
 </template>
 <p id="attempts" class="hidden"></p>
 <div id="game-board"></div>
-<p id="stop-watch"></p>
+<p id="stop-watch" class="hidden"></p>
 <button id="small-btn">Small 2*2</button><button id="medium-btn">Medium 2*4</button><button id="restart-btn">Restart</button>
 </div>
 `
@@ -134,6 +134,20 @@ customElements.define('my-memory',
     #amountAttempts = 1
 
     /**
+     * Displays stop watch.
+     *
+     * @type {HTMLParagraphElement}
+     */
+    #displayStopWatch
+
+    /**
+     * A stop watch.
+     *
+     * @type {number} - The players used time during a gameround.
+     */
+    #stopWatch
+
+    /**
      * The button representing a small gameboard.
      *
      * @type {HTMLButtonElement}
@@ -167,6 +181,7 @@ customElements.define('my-memory',
       this.#gameBoard = this.shadowRoot.querySelector('#game-board')
       this.#tile = this.shadowRoot.querySelector('#tile')
       this.#displayAttempts = this.shadowRoot.querySelector('#attempts')
+      this.#displayStopWatch = this.shadowRoot.querySelector('#stop-watch')
       this.#mediumBtn = this.shadowRoot.querySelector('#medium-btn')
       this.#smallBtn = this.shadowRoot.querySelector('#small-btn')
       this.#restartBtn = this.shadowRoot.querySelector('#restart-btn')
@@ -209,7 +224,7 @@ customElements.define('my-memory',
         width: 4,
         height: 4
       }
-      console.log('Gameboard', this.#gameBoard)
+
       if (this.gameBoardSize === 'small') {
         gameSize.width = gameSize.height = 2
       } else if (this.gameBoardSize === 'medium') {
@@ -241,6 +256,8 @@ customElements.define('my-memory',
 
       // Listen for gameboard changes
       this.#smallBtn.addEventListener('click', () => {
+        clearInterval(this.#stopWatch)
+        this.#displayStopWatch.classList.add('hidden')
         this.#displayAttempts.classList.add('hidden')
         this.#amountAttempts = 1
         this.setAttribute('gameboardsize', 'small')
@@ -248,6 +265,8 @@ customElements.define('my-memory',
         this.populateGameboard()
       })
       this.#mediumBtn.addEventListener('click', () => {
+        clearInterval(this.#stopWatch)
+        this.#displayStopWatch.classList.add('hidden')
         this.#displayAttempts.classList.add('hidden')
         this.#amountAttempts = 1
         this.setAttribute('gameboardsize', 'medium')
@@ -255,6 +274,8 @@ customElements.define('my-memory',
         this.populateGameboard()
       })
       this.#restartBtn.addEventListener('click', () => {
+        clearInterval(this.#stopWatch)
+        this.#displayStopWatch.classList.add('hidden')
         this.#displayAttempts.classList.add('hidden')
         this.#amountAttempts = 1
         this.removeAttribute('gameboardsize')
@@ -264,9 +285,14 @@ customElements.define('my-memory',
 
       // Listen for flip events.
       this.#gameBoard.addEventListener('flip', () => {
-        console.log('Some shit just flipped from Memory')
         const disabledTiles = this.disableTiles()
         this.checkIfMatch(disabledTiles)
+      })
+
+      // Listen for player won event.
+      this.addEventListener('playerWon', () => {
+        this.#displayStopWatch.classList.add('hidden')
+        clearInterval(this.#stopWatch)
       })
     }
 
@@ -334,10 +360,14 @@ customElements.define('my-memory',
             firstTile.setAttribute('hidden', '')
             secondTile.setAttribute('hidden', '')
             nameEvent = 'match'
+            // Display amount of attempts
+            this.getAmountAttempts()
           } else {
             firstTile.removeAttribute('face-up')
             secondTile.removeAttribute('face-up')
             enableFlipTiles.push(firstTile, secondTile)
+            // Display amount of attempts
+            this.getAmountAttempts()
           }
 
           this.dispatchEvent(new CustomEvent(nameEvent, {
@@ -348,6 +378,8 @@ customElements.define('my-memory',
           // Player has won
           if (flipTiles.all.every(tile => tile.hidden)) {
             flipTiles.all.forEach(tile => (tile.disabled = true))
+            this.#displayAttempts.classList.add('hidden')
+            this.#amountAttempts = 1
             this.dispatchEvent(new CustomEvent('playerWon', {
               bubbles: true
             }))
@@ -358,9 +390,6 @@ customElements.define('my-memory',
             // Enable tiles.
             enableFlipTiles.forEach(tile => tile.removeAttribute('disabled'))
           }
-
-          // Display amount of attempts
-          this.getAmountAttempts()
         }, timer)
       }
     }
@@ -376,5 +405,13 @@ customElements.define('my-memory',
     /**
      * Count players time.
      */
+    stopWatch () {
+      let time = 1
+      this.#displayStopWatch.classList.remove('hidden')
+      clearInterval(this.#stopWatch)
+      this.#stopWatch = setInterval(() => {
+        this.#displayStopWatch.textContent = `Used time: ${time++}`
+      }, 1000)
+    }
   }
 )

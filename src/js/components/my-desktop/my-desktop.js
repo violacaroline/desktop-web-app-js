@@ -15,7 +15,8 @@ template.innerHTML = `
       text-align: center;
       font-size: 50px;
       height: 100vh;
-      padding: 20px;      
+      padding: 20px;
+      user-select: none;      
     }
 
     h1 {

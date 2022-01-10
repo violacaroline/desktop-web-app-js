@@ -118,10 +118,10 @@ customElements.define('my-window',
         this.mouseUp(event)
       }, true)
 
-      this.#containerWindow.addEventListener('click', () => {
-        this.#containerWindow.focus()
-        console.log('Window should have focus')
-      }, true)
+      this.#containerWindow.addEventListener('focus', (event) => {
+        event.target.focus()
+        // this.#containerWindow.focus()
+      })
 
       this.#closeButton.addEventListener('click', () =>
         this.remove(this.#containerWindow)
