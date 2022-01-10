@@ -1,7 +1,6 @@
 /**
  * The chat web component module.
  */
-import '../my-emoji/'
 
 // Define template.
 const template = document.createElement('template')
@@ -89,7 +88,7 @@ template.innerHTML = `
   <div id="message-ui" class="hidden">
   <textarea readonly tabindex="-1" id="text-area"></textarea>
   <textarea placeholder="Type your message" id="text-area-send"></textarea>
-  <button id="send-msg-btn">Send</button><button id="emoji-btn">Emojis</button>
+  <button id="send-msg-btn">Send</button>
   </div>  
 </div>
 `
@@ -98,7 +97,7 @@ template.innerHTML = `
  */
 customElements.define('my-chat',
   /**
-   * Represents achat window.
+   * Represents a chat window.
    */
   class extends HTMLElement {
     /**
@@ -151,13 +150,6 @@ customElements.define('my-chat',
     #sendMsgBtn
 
     /**
-     * Emoji button.
-     *
-     * @type {HTMLButtonElement}
-     */
-    #emojiBtn
-
-    /**
      * Create websocket.
      *
      * @type {WebSocket}
@@ -188,15 +180,12 @@ customElements.define('my-chat',
       this.#inputArea = this.shadowRoot.querySelector('#input-area')
       this.#sendBtn = this.shadowRoot.querySelector('#send-btn')
       this.#sendMsgBtn = this.shadowRoot.querySelector('#send-msg-btn')
-      this.#emojiBtn = this.shadowRoot.querySelector('#emoji-btn')
     }
 
     /**
      * Called when element is inserted in DOM.
      */
     connectedCallback () {
-      console.log(window.localStorage.getItem('user-name'))
-      // NOT THE RIGHT WAY???
       if (window.localStorage.getItem('user-name') !== null) {
         this.#nameUi.classList.add('hidden')
         this.#messageUi.classList.remove('hidden')
@@ -230,9 +219,7 @@ customElements.define('my-chat',
         this.#socket.addEventListener('message', (event) => {
           parsedData = JSON.parse(event.data)
 
-          if (parsedData.data === '') {
-            return
-          } else {
+          if (parsedData.data !== '') {
             this.showMessage(`${parsedData.username} says ${parsedData.data}`)
           }
         })

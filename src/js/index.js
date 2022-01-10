@@ -11,7 +11,6 @@ import './components/my-window/'
 import './components/my-memory/'
 import './components/my-flip-tile/'
 import './components/my-chat/'
-import './components/my-emoji/'
 import './components/my-advice/'
 
 // Get document body.
