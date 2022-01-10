@@ -188,16 +188,21 @@ customElements.define('my-chat',
      * Called when element is inserted in DOM.
      */
     connectedCallback () {
+      console.log(window.localStorage.getItem('user-name'))
       // NOT THE RIGHT WAY???
+      if (window.localStorage.getItem('user-name') !== null) {
+        this.#nameUi.classList.add('hidden')
+        this.#messageUi.classList.remove('hidden')
+      } else {
+        this.#messageUi.classList.add('hidden')
+        this.#nameUi.classList.remove('hidden')
+      }
 
-      // if (window.localStorage.getItem('user-name')) {
-      //   this.#nameUi.classList.add('hidden')
-      //   this.#messageUi.classList.remove('hidden')
-      // }
       // SEND NAME
       this.#sendBtn.addEventListener('click', () => {
         if (this.#inputArea.value) {
           this.#userName = this.#inputArea.value
+          window.localStorage.setItem('user-name', this.#userName)
           this.#nameUi.classList.add('hidden')
           this.#messageUi.classList.remove('hidden')
         } else {
@@ -228,8 +233,7 @@ customElements.define('my-chat',
 
         // SEND MESSAGE
         this.#sendMsgBtn.addEventListener('click', () => {
-          parsedData.username = this.#userName || window.localStorage.getItem('user-name').slice(1, -1) // WHY DOES IT CUT OUT THE NAME MAKING USER-NAME UNDEFINED?
-          window.localStorage.setItem('user-name', JSON.stringify(this.#userName))
+          parsedData.username = this.#userName || window.localStorage.getItem('user-name')
           parsedData.data = this.#textAreaSend.value
           parsedData.key = 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
           this.#socket.send(JSON.stringify(parsedData))

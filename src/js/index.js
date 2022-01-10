@@ -15,7 +15,7 @@ import './components/my-emoji/'
 import './components/my-advice/'
 
 // Get document body.
-const mainContainer = document.querySelector('#main-container')
+// const mainContainer = document.querySelector('#main-container')
 
 // Create and append desktop component.
 // mainContainer.appendChild(document.createElement('my-desktop'))
@@ -24,7 +24,7 @@ const mainContainer = document.querySelector('#main-container')
 // mainContainer.appendChild(document.createElement('my-window'))
 
 // Create and append my-chat component
-mainContainer.appendChild(document.createElement('my-chat'))
+// mainContainer.appendChild(document.createElement('my-chat'))
 
 // Create and append my-emoji component
 // mainContainer.appendChild(document.createElement('my-emoji'))
