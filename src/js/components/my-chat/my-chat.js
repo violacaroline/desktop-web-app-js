@@ -209,7 +209,7 @@ customElements.define('my-chat',
           this.#inputArea.setAttribute('placeholder', 'Try again')
         }
       })
-      // DATA OBJECT
+
       let parsedData = {
         type: 'message',
         data: '',
@@ -219,7 +219,6 @@ customElements.define('my-chat',
 
       // LISTEN FOR OPEN SOCKET EVENT
       this.#socket.addEventListener('open', () => {
-        console.log('Yay, open!')
         // LISTEN FOR MESSAGE EVENT
         this.#socket.addEventListener('message', (event) => {
           parsedData = JSON.parse(event.data)
@@ -238,6 +237,7 @@ customElements.define('my-chat',
           parsedData.key = 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
           this.#socket.send(JSON.stringify(parsedData))
           this.#textAreaSend.value = ''
+          this.#textAreaSend.focus()
         })
       })
 
