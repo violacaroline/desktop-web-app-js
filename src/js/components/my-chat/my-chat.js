@@ -1,6 +1,7 @@
 /**
  * The chat web component module.
  */
+import '../my-emoji/'
 
 // Define template.
 const template = document.createElement('template')

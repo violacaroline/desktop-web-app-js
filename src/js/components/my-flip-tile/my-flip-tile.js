@@ -91,7 +91,9 @@ template.innerHTML = `
     <div part="tile-back" id="back"></div>
 </button>
 `
-
+/**
+ * Define custom element.
+ */
 customElements.define('my-flip-tile',
 /**
  * Represents a single tile in a memory game.

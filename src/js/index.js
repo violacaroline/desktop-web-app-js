@@ -11,10 +11,11 @@ import './components/my-window/'
 import './components/my-memory/'
 import './components/my-flip-tile/'
 import './components/my-chat/'
+import './components/my-emoji/'
 import './components/my-advice/'
 
 // Get document body.
-// const mainContainer = document.querySelector('#main-container')
+const mainContainer = document.querySelector('#main-container')
 
 // Create and append desktop component.
 // mainContainer.appendChild(document.createElement('my-desktop'))
@@ -23,7 +24,10 @@ import './components/my-advice/'
 // mainContainer.appendChild(document.createElement('my-window'))
 
 // Create and append my-chat component
-// mainContainer.appendChild(document.createElement('my-chat'))
+mainContainer.appendChild(document.createElement('my-chat'))
+
+// Create and append my-emoji component
+// mainContainer.appendChild(document.createElement('my-emoji'))
 
 // Create and append my-memory component.
 // mainContainer.appendChild(document.createElement('my-memory'))

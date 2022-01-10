@@ -6,13 +6,14 @@
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
-    .emoji-container {
+    #container-emoji {
+        background-color: #fff;
         width: 100px;
         height: 100px;
-        margin: auto;
+        
     }
 
-    .emoji-list {
+    #emoji-list {
         background-color: #fff;
         width: 100%;
         height: 100px;
@@ -25,10 +26,10 @@ template.innerHTML = `
 
     .emoji {
         position: relative;
-        font-size: 15px;
-        width: 20px;
-        height: 20px;
-        margin: 3px auto;
+        font-size: 20px;
+        width: 32px;
+        height: 32px;
+        margin: 0 auto;
     }
 
     .emoji:hover {
@@ -38,12 +39,41 @@ template.innerHTML = `
 </style>
 <div id="container-emoji">
     <div id="emoji-list">
-        <div id="emoji">🙂</div>
-        <div id="emoji">😂</div>
-        <div id="emoji">😍</div>
-        <div id="emoji">😎</div>
-        <div id="emoji">☹️</div>
-        <div id="emoji">😡</div>
+        <div class="emoji">🙂</div>
+        <div class="emoji">😂</div>
+        <div class="emoji">😍</div>
+        <div class="emoji">😎</div>
+        <div class="emoji">☹️</div>
+        <div class="emoji">😡</div>
     </div>
 </div>
 `
+/**
+ * Define custom element.
+ */
+customElements.define('my-emoji',
+  /**
+   * Represents an emoji picker.
+   */
+  class extends HTMLElement {
+    /**
+     * The container of emojis.
+     *
+     * @type {HTMLDivElement}
+     */
+    #containerEmoji
+
+    /**
+     * Creates an instance of the current type.
+     */
+    constructor () {
+      super()
+
+      // Attach shadow DOM and append template.
+      this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true))
+
+      // Get the elements in the shadow root.
+      this.#containerEmoji = this.shadowRoot.querySelector('#container-emoji')
+    }
+  }
+)
