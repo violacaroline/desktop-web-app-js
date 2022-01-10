@@ -10,7 +10,7 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
     #desktop-template {
-      /* border: 4px solid #433E49; */
+      box-sizing: border-box;
       background-color: #F3E8EB;
       text-align: center;
       font-size: 50px;
@@ -142,6 +142,8 @@ customElements.define('my-desktop',
      * Called when element is inserted in DOM.
      */
     connectedCallback () {
+      const rect = this.getBoundingClientRect()
+      console.log(rect)
       // Handle memory button clicks.
       this.#memoryBtn.addEventListener('click', () => {
         const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))

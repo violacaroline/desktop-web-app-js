@@ -305,17 +305,17 @@ customElements.define('my-memory',
       }
       const { width, height } = this.gameSize()
       const amountTiles = width * height
-      // TEST TO ADD TILES
+      // Add tiles.
       for (let i = 0; i < amountTiles; i++) {
         const tile = this.#tile.content.cloneNode(true)
         this.#gameBoard.appendChild(tile)
       }
 
-      // TEST TO RANDOMIZE IMAGE ORDER
+      // Randomize image order.
       const imageOrder = [...Array(amountTiles).keys()]
       const randomizedImageOrder = imageOrder.sort((a, b) => 0.5 - Math.random())
 
-      // TEST TO ADD IMAGES
+      // Add images.
       this.flipTiles.all.forEach((tile, index) => {
         tile.querySelector('img').setAttribute('src', `${this.#relativePathImages + randomizedImageOrder[index] % (amountTiles / 2) + '.png'}`)
         tile.faceUp = tile.disabled = tile.hidden = false

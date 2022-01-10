@@ -118,6 +118,7 @@ customElements.define('my-window',
         this.mouseUp(event)
       }, true)
 
+      // FIX THIS SHIT
       this.#containerWindow.addEventListener('focus', (event) => {
         event.target.focus()
         // this.#containerWindow.focus()
@@ -137,6 +138,8 @@ customElements.define('my-window',
       this.mouseDown = true
       this.x = this.#containerWindow.offsetLeft - event.clientX
       this.y = this.#containerWindow.offsetTop - event.clientY
+      console.log('X:', this.x)
+      console.log('Y:', this.y)
     }
 
     /**

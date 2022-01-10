@@ -117,8 +117,7 @@ customElements.define('my-flip-tile',
       this.#tile = this.shadowRoot.querySelector('#tile')
 
       // Add event listener for 'click'
-      this.addEventListener('click', (event) => {
-        console.log('Tile flipped from my-flip-tile')
+      this.addEventListener('click', () => {
         this.#flip()
       })
     }

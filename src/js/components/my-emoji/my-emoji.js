@@ -9,8 +9,8 @@ template.innerHTML = `
     #container-emoji {
         background-color: #fff;
         width: 100px;
-        height: 100px;
-        
+        height: 80px;
+        border-radius: 5px; 
     }
 
     #emoji-list {
@@ -74,6 +74,13 @@ customElements.define('my-emoji',
 
       // Get the elements in the shadow root.
       this.#containerEmoji = this.shadowRoot.querySelector('#container-emoji')
+    }
+
+    /**
+     * Called when element is inserted in DOM.
+     */
+    connectedCallback () {
+
     }
   }
 )

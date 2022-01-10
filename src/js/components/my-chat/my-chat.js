@@ -78,7 +78,6 @@ template.innerHTML = `
     .hidden {
       display: none;
     }
-
 </style>
 <div id="container-chat">
   <h1>Chat</h1>
@@ -90,7 +89,7 @@ template.innerHTML = `
   <div id="message-ui" class="hidden">
   <textarea readonly tabindex="-1" id="text-area"></textarea>
   <textarea placeholder="Type your message" id="text-area-send"></textarea>
-  <button id="send-msg-btn">Send</button>
+  <button id="send-msg-btn">Send</button><button id="emoji-btn">Emojis</button>
   </div>  
 </div>
 `
@@ -117,21 +116,21 @@ customElements.define('my-chat',
     #messageUi
 
     /**
-     * The text area.
+     * The text area where to display messages.
      *
      * @type {HTMLInputElement} - NO TEXTAREA ELEMENT?
      */
     #textArea
 
     /**
-     * Text area send.
+     * Text area where to write messages.
      *
      * @type {HTMLInputElement} - NO TEXTAREA ELEMENT.
      */
     #textAreaSend
 
     /**
-     * The input area.
+     * The input area from where to get username.
      *
      * @type {HTMLInputElement}
      */
@@ -150,6 +149,13 @@ customElements.define('my-chat',
      * @type {HTMLButtonElement}
      */
     #sendMsgBtn
+
+    /**
+     * Emoji button.
+     *
+     * @type {HTMLButtonElement}
+     */
+    #emojiBtn
 
     /**
      * Create websocket.
@@ -182,6 +188,7 @@ customElements.define('my-chat',
       this.#inputArea = this.shadowRoot.querySelector('#input-area')
       this.#sendBtn = this.shadowRoot.querySelector('#send-btn')
       this.#sendMsgBtn = this.shadowRoot.querySelector('#send-msg-btn')
+      this.#emojiBtn = this.shadowRoot.querySelector('#emoji-btn')
     }
 
     /**
@@ -224,7 +231,7 @@ customElements.define('my-chat',
           parsedData = JSON.parse(event.data)
 
           if (parsedData.data === '') {
-            console.log('Server does shit, but message empty you n00b!')
+            return
           } else {
             this.showMessage(`${parsedData.username} says ${parsedData.data}`)
           }
@@ -233,7 +240,7 @@ customElements.define('my-chat',
         // SEND MESSAGE
         this.#sendMsgBtn.addEventListener('click', () => {
           parsedData.username = this.#userName || window.localStorage.getItem('user-name')
-          parsedData.data = this.#textAreaSend.value
+          parsedData.data = this.insertEmoji(this.#textAreaSend.value)
           parsedData.key = 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
           this.#socket.send(JSON.stringify(parsedData))
           this.#textAreaSend.value = ''
@@ -252,6 +259,29 @@ customElements.define('my-chat',
      */
     disconnectedCallback () {
       this.#socket.close()
+    }
+
+    /**
+     * Search through string to find e.g :) and replace with smiley.
+     *
+     * @param {string} message - The message to search through.
+     * @returns {string} - Returns transformed message.
+     */
+    insertEmoji (message) {
+      const emojis = {
+        ':)': '🙂',
+        ';)': '😉',
+        ':D': '😁',
+        ':/': '😕',
+        ':(': '☹️',
+        ':o': '😮',
+        ':*': '😘',
+        '<3': '❤️'
+      }
+
+      const regExp = /(?::\)|;\)|:D|:\/|:\(|:o|:\*|<3)/g
+      const transformedMsg = message.replace(regExp, (emoji) => emojis[emoji] || emoji)
+      return transformedMsg
     }
 
     /**
