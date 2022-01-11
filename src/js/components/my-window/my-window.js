@@ -105,15 +105,15 @@ customElements.define('my-window',
     connectedCallback () {
       this.#menuBar.addEventListener('mousedown', (event) => {
         this.mouseDownEvent(event)
-      }, true)
+      })
 
       this.#containerWindow.addEventListener('mousemove', (event) => {
         this.mouseMoveEvent(event)
-      }, true)
+      })
 
       window.addEventListener('mouseup', (event) => {
         this.mouseUp(event)
-      }, true)
+      })
 
       this.#closeButton.addEventListener('click', () =>
         this.remove(this.#containerWindow)

@@ -15,6 +15,7 @@ template.innerHTML = `
 
     :host([hidden]) #tile {
       box-shadow: none;
+      background-color: #F3E8EB;
     }
 
     :host([hidden]) #tile>* {
@@ -42,13 +43,6 @@ template.innerHTML = `
 
     #tile:focus {
       box-shadow: 0px 0 10px #433E49;
-    }
-
-    #tile[disabled] {
-      pointer-events: none;
-      box-shadow: none;
-      border-style: dashed;
-      border-color: #858585;
     }
 
     #front, #back {
@@ -117,7 +111,8 @@ customElements.define('my-flip-tile',
       this.#tile = this.shadowRoot.querySelector('#tile')
 
       // Flip on click
-      this.addEventListener('click', () => {
+      this.addEventListener('click', (event) => {
+        event.stopPropagation()
         this.#flip()
       })
     }

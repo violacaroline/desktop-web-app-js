@@ -26,7 +26,7 @@ template.innerHTML = `
       width: min-content;
       margin: 0 auto;
       grid-template-columns: repeat(4, var(--tile-size));
-      gap: 15px;   
+      gap: 12px;   
     }
 
     #game-board.small {
@@ -34,16 +34,15 @@ template.innerHTML = `
     }
 
     #attempts {
-      position: absolute;
-      max-width: min-content;
       font-size: 15px;
+      text-align: center;
     }
 
     button {
       background-color: #e6d1c1;
       font-family: "Times New Roman", Times, serif
       font-weight: bold;
-      margin: 25px;
+      margin: 20px;
       padding: 5px;
       border-radius: 3px;
       border: solid 1px black;
@@ -80,8 +79,8 @@ template.innerHTML = `
 <audio id="wrong-answer">
   <source src="/js/components/my-memory/audio/wrong-answer.mp3"/>
 </audio>
-<p id="attempts" class="hidden"></p>
 <div id="game-board"></div>
+<p id="attempts" class="hidden"></p>
 <button id="small-btn">Small 2*2</button><button id="medium-btn">Medium 2*4</button><button id="restart-btn">Large 4*4</button>
 </div>
 `
