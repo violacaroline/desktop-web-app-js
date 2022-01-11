@@ -122,6 +122,13 @@ customElements.define('my-desktop',
     #adviceBtn
 
     /**
+     * Tracks Z-index.
+     *
+     * @type {number} - The current z-index.
+     */
+    #currentZIndex = 0
+
+    /**
      * Creates an instance of the desktop element.
      */
     constructor () {
@@ -142,26 +149,35 @@ customElements.define('my-desktop',
      * Called when element is inserted in DOM.
      */
     connectedCallback () {
-      // SKALL DETTA EVENTUELLT ANVÄNDAS FÖR ATT FÖRHINDRA ATT SUB APP WINDOW KAN GÅ UTANFÖR?
-      const rect = this.getBoundingClientRect()
-      console.log(rect)
       // Handle memory button clicks.
       this.#memoryBtn.addEventListener('click', () => {
         const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))
         currentWindow.appendChild(document.createElement('my-memory'))
         // EVENT LISTENER FOKUS Z-INDEX, DESKTOP HAR KOLL PÅ ALLA FÖNSTER, VARIABEL ATT HÅLLA KOLL PÅ ZINDEX
+        currentWindow.addEventListener('click', () => {
+          currentWindow.focus()
+          currentWindow.style.zIndex = this.#currentZIndex++
+        })
       })
 
       // Handle chat button clicks.
       this.#chatBtn.addEventListener('click', () => {
         const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))
         currentWindow.appendChild(document.createElement('my-chat'))
+        currentWindow.addEventListener('click', () => {
+          currentWindow.focus()
+          currentWindow.style.zIndex = this.#currentZIndex++
+        })
       })
 
       // Handle advice button clicks.
       this.#adviceBtn.addEventListener('click', () => {
         const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))
         currentWindow.appendChild(document.createElement('my-advice'))
+        currentWindow.addEventListener('click', () => {
+          currentWindow.focus()
+          currentWindow.style.zIndex = this.#currentZIndex++
+        })
       })
     }
   }

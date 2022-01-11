@@ -11,7 +11,7 @@ template.innerHTML = `
       font-family: "Times New Roman", Times, serif
       font-size: 20px;
       width: 400px;
-      height: 400px;
+      height: 450px;
       text-align: center;
       margin: 0 auto;
     }

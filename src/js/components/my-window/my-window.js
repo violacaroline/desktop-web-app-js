@@ -114,6 +114,9 @@ customElements.define('my-window',
      * Called when element is inserted in DOM.
      */
     connectedCallback () {
+      const rect = this.getBoundingClientRect()
+      console.log('Rect from window', rect)
+
       this.#menuBar.addEventListener('mousedown', (event) => {
         this.mouseDownEvent(event)
       }, true)
@@ -157,13 +160,13 @@ customElements.define('my-window',
      * @param {event} event - The mousemove event.
      */
     mouseMoveEvent (event) {
+      // Save current viewport
+
       if (this.mouseDown) {
         // OM MUSKNAPP HÅLLS NED, SÄTT NY POSITION
         // VART KLICKET HÄNDER + STARTPOSITION // ÄR JAG UTANFÖR VIEWPORT RETURN, THIS.GETBOUNDING
         this.style.left = event.clientX + this.x + 'px'
         this.style.top = event.clientY + this.y + 'px'
-        const rect = this.getBoundingClientRect()
-        console.log(rect)
       }
     }
 
