@@ -153,7 +153,7 @@ customElements.define('my-desktop',
       this.#memoryBtn.addEventListener('click', () => {
         const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))
         currentWindow.appendChild(document.createElement('my-memory'))
-        // EVENT LISTENER FOKUS Z-INDEX, DESKTOP HAR KOLL PÅ ALLA FÖNSTER, VARIABEL ATT HÅLLA KOLL PÅ ZINDEX
+        // Set z-index on click
         currentWindow.addEventListener('click', () => {
           currentWindow.focus()
           currentWindow.style.zIndex = this.#currentZIndex++
@@ -164,6 +164,7 @@ customElements.define('my-desktop',
       this.#chatBtn.addEventListener('click', () => {
         const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))
         currentWindow.appendChild(document.createElement('my-chat'))
+        // Set z-index on click
         currentWindow.addEventListener('click', () => {
           currentWindow.focus()
           currentWindow.style.zIndex = this.#currentZIndex++
@@ -174,6 +175,7 @@ customElements.define('my-desktop',
       this.#adviceBtn.addEventListener('click', () => {
         const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))
         currentWindow.appendChild(document.createElement('my-advice'))
+        // Set z-index on click
         currentWindow.addEventListener('click', () => {
           currentWindow.focus()
           currentWindow.style.zIndex = this.#currentZIndex++

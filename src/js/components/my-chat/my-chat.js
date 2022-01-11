@@ -213,9 +213,9 @@ customElements.define('my-chat',
         key: ''
       }
 
-      // LISTEN FOR OPEN SOCKET EVENT
+      // On sock open event
       this.#socket.addEventListener('open', () => {
-        // LISTEN FOR MESSAGE EVENT
+        // Listen for messages
         this.#socket.addEventListener('message', (event) => {
           parsedData = JSON.parse(event.data)
 
@@ -224,7 +224,6 @@ customElements.define('my-chat',
           }
         })
 
-        // SEND MESSAGE
         this.#sendMsgBtn.addEventListener('click', () => {
           parsedData.username = this.#userName || window.localStorage.getItem('user-name')
           parsedData.data = this.insertEmoji(this.#textAreaSend.value)

@@ -17,22 +17,13 @@ template.innerHTML = `
   }
 
   #container-window {
-   /* position: absolute;
-   top: 30px;
-   left: 30px; */
    justify-content: center;
    background-color: #F3E8EB;
    text-align: center;
    padding: 5px;
-   /* height: 500px;
-   width: 500px; */
    margin: auto;
    overflow: hidden;
    border: solid 1px #433E49;
-  }
-
-  #container-window:focus {
-    z-index: 100;
   }
 
   #menu-bar {

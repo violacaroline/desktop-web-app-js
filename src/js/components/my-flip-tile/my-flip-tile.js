@@ -116,7 +116,7 @@ customElements.define('my-flip-tile',
       // Get the elements in the shadow root.
       this.#tile = this.shadowRoot.querySelector('#tile')
 
-      // Add event listener for 'click'
+      // Flip on click
       this.addEventListener('click', () => {
         this.#flip()
       })
