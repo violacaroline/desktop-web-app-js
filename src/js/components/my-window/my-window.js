@@ -10,8 +10,8 @@ template.innerHTML = `
 <style>
   :host {
     position: absolute;
-    top: 30px;
-    left: 30px;
+    top: 70px;
+    left: 100px;
     height: 500px;
     width: 500px;
   }
@@ -105,9 +105,6 @@ customElements.define('my-window',
      * Called when element is inserted in DOM.
      */
     connectedCallback () {
-      const rect = this.getBoundingClientRect()
-      console.log('Rect from window', rect)
-
       this.#menuBar.addEventListener('mousedown', (event) => {
         this.mouseDownEvent(event)
       }, true)
@@ -120,11 +117,6 @@ customElements.define('my-window',
         this.mouseUp(event)
       }, true)
 
-      // FIX THIS SHIT // EVENTUELLT PÅ BARA THIS //
-      this.#containerWindow.addEventListener('focus', (event) => {
-        // ETT WINDOW ELEMENT SKAPAS VID TRYCK PÅ EN IKON PÅ FÖRSTA SIDAN (DESKTOP), SPARAS I EN CONST, DÄRFTER APPENDAS/SLOTTAS KORREKT KOMPONENT BEROENDE PÅ VILKEN IKON SOM TRYCKTES (MEMORY, CHAT, ADVICE) - VERKAR SOM ATT JAG REFERERAR TILL FEL ELEMENT NÄR JAG VILL GE FOKUS?
-      })
-
       this.#closeButton.addEventListener('click', () =>
         this.remove(this.#containerWindow)
       )
@@ -136,11 +128,7 @@ customElements.define('my-window',
      * @param {event} event - The mousedown event.
      */
     mouseDownEvent (event) {
-      // MUSKNAPP NED SÄTTS TILL TRUE
       this.mouseDown = true
-      // SPARA START POSITION AV FÖNSTER
-      // FÖNSTRETS VÄNSTRA TOPPHÖRN - HORISONTELL KOORDINAT FÖR KLICKEVENTET
-      // FÖNSTRETS TOPP - VERTIKAL KOORDINAT FÖR KLICKEVENTET
       this.x = this.offsetLeft - event.clientX
       this.y = this.offsetTop - event.clientY
     }
@@ -152,12 +140,18 @@ customElements.define('my-window',
      */
     mouseMoveEvent (event) {
       // Save current viewport
+      const rect = this.getBoundingClientRect()
 
       if (this.mouseDown) {
-        // OM MUSKNAPP HÅLLS NED, SÄTT NY POSITION
-        // VART KLICKET HÄNDER + STARTPOSITION // ÄR JAG UTANFÖR VIEWPORT RETURN, THIS.GETBOUNDING
-        this.style.left = event.clientX + this.x + 'px'
-        this.style.top = event.clientY + this.y + 'px'
+        // Check viewport edges and return window if outside bounds
+        if (rect.top < 0 || rect.left < 0 || rect.x < 0 || rect.y < 0 || rect.bottom > window.innerHeight + 200 || rect.right > window.innerWidth + 200) {
+          this.mouseDown = false
+          this.style.left = '50px'
+          this.style.top = '50px'
+        } else {
+          this.style.left = event.clientX + this.x + 'px'
+          this.style.top = event.clientY + this.y + 'px'
+        }
       }
     }
 
@@ -167,7 +161,6 @@ customElements.define('my-window',
      * @param {event} event - The mouseup event.
      */
     mouseUp (event) {
-      // OM MUSKNAPP SLÄPPS SÄTTS MOUSEDOWN TILL FALSE
       this.mouseDown = false
     }
   }

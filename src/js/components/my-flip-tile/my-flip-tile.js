@@ -6,18 +6,18 @@
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
-    :host { /* TA EVENTUELLT BORT */
+    :host {
       display: block;
       height: 80px;
       width: 80px;
       position: relative;
     }
 
-    :host([hidden]) #tile { /* TA EVENTUELLT BORT */
+    :host([hidden]) #tile { /* LEAVES TILES FACE UP WITH IMAGES IF REMOVED */
       box-shadow: none;
     }
 
-    :host([hidden]) #tile>* { /* TA EVENTUELLT BORT */
+    :host([hidden]) #tile>* { /* REMOVE IMAGES IF REMOVED */
       visibility: hidden;
     }
 
@@ -44,7 +44,7 @@ template.innerHTML = `
       box-shadow: 0px 0 10px #433E49;
     }
 
-    #tile[disabled] { /* TA EVENTUELLT BORT */
+    #tile[disabled] {
       pointer-events: none;
       box-shadow: none;
       border-style: dashed;
@@ -68,7 +68,7 @@ template.innerHTML = `
       display: inline-block;
     }
 
-    slot { /* TA EVENTUELLT BORT */
+    slot {
       width: 100%;
       height: 100%;
       display: flex;

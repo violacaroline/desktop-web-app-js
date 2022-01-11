@@ -335,7 +335,7 @@ customElements.define('my-memory',
       // Set a timer to hide or flip back tiles
       if (secondTile) {
         const isMatch = firstTile.isMatch(secondTile)
-        const timer = isMatch ? 1000 : 1200
+        const timer = 1000
 
         window.setTimeout(() => {
           let nameEvent = 'no-match'
