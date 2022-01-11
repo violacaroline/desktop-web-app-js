@@ -120,8 +120,7 @@ customElements.define('my-window',
 
       // FIX THIS SHIT
       this.#containerWindow.addEventListener('focus', (event) => {
-        event.target.focus()
-        // this.#containerWindow.focus()
+        // ETT WINDOW ELEMENT SKAPAS VID TRYCK PÅ EN IKON PÅ FÖRSTA SIDAN (DESKTOP), SPARAS I EN CONST, DÄRFTER APPENDAS/SLOTTAS KORREKT KOMPONENT BEROENDE PÅ VILKEN IKON SOM TRYCKTES (MEMORY, CHAT, ADVICE) - VERKAR SOM ATT JAG REFERERAR TILL FEL ELEMENT NÄR JAG VILL GE FOKUS?
       })
 
       this.#closeButton.addEventListener('click', () =>
@@ -135,11 +134,13 @@ customElements.define('my-window',
      * @param {event} event - The mousedown event.
      */
     mouseDownEvent (event) {
+      // MUSKNAPP NED SÄTTS TILL TRUE
       this.mouseDown = true
+      // SPARA START POSITION AV FÖNSTER
+      // FÖNSTRETS VÄNSTRA TOPPHÖRN - HORISONTELL KOORDINAT FÖR KLICKEVENTET
+      // FÖNSTRETS TOPP - VERTIKAL KOORDINAT FÖR KLICKEVENTET
       this.x = this.#containerWindow.offsetLeft - event.clientX
       this.y = this.#containerWindow.offsetTop - event.clientY
-      console.log('X:', this.x)
-      console.log('Y:', this.y)
     }
 
     /**
@@ -149,6 +150,8 @@ customElements.define('my-window',
      */
     mouseMoveEvent (event) {
       if (this.mouseDown) {
+        // OM MUSKNAPP HÅLLS NED, SÄTT NY POSITION
+        // VART KLICKET HÄNDER + STARTPOSITION
         this.#containerWindow.style.left = event.clientX + this.x + 'px'
         this.#containerWindow.style.top = event.clientY + this.y + 'px'
       }
@@ -160,6 +163,7 @@ customElements.define('my-window',
      * @param {event} event - The mouseup event.
      */
     mouseUp (event) {
+      // OM MUSKNAPP SLÄPPS SÄTTS MOUSEDOWN TILL FALSE
       this.mouseDown = false
     }
   }

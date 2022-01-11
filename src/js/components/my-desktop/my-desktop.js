@@ -142,6 +142,7 @@ customElements.define('my-desktop',
      * Called when element is inserted in DOM.
      */
     connectedCallback () {
+      // SKALL DETTA EVENTUELLT ANVÄNDAS FÖR ATT FÖRHINDRA ATT SUB APP WINDOW KAN GÅ UTANFÖR?
       const rect = this.getBoundingClientRect()
       console.log(rect)
       // Handle memory button clicks.
