@@ -1,8 +1,6 @@
 /**
  * The my-window web component module.
  */
-import '../my-memory/'
-import '../my-chat/'
 
 // Define template
 const template = document.createElement('template')

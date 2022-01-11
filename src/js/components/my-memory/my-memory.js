@@ -1,7 +1,6 @@
 /**
  * The memory game web component module.
  */
-import '../my-flip-tile/'
 
 // Define template
 const template = document.createElement('template')
@@ -83,7 +82,7 @@ template.innerHTML = `
 </audio>
 <p id="attempts" class="hidden"></p>
 <div id="game-board"></div>
-<button id="small-btn">Small 2*2</button><button id="medium-btn">Medium 2*4</button><button id="restart-btn">Restart</button>
+<button id="small-btn">Small 2*2</button><button id="medium-btn">Medium 2*4</button><button id="restart-btn">Large 4*4</button>
 </div>
 `
 

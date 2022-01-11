@@ -1,9 +1,6 @@
 /**
  * The desktop web component module.
  */
-import '../my-window/'
-import '../my-memory/'
-import '../my-chat/'
 
 // Define template.
 const template = document.createElement('template')
