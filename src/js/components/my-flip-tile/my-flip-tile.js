@@ -13,11 +13,11 @@ template.innerHTML = `
       position: relative;
     }
 
-    :host([hidden]) #tile { /* LEAVES TILES FACE UP WITH IMAGES IF REMOVED */
+    :host([hidden]) #tile {
       box-shadow: none;
     }
 
-    :host([hidden]) #tile>* { /* REMOVE IMAGES IF REMOVED */
+    :host([hidden]) #tile>* {
       visibility: hidden;
     }
 

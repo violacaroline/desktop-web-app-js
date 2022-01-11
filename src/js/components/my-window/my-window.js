@@ -143,11 +143,11 @@ customElements.define('my-window',
       const rect = this.getBoundingClientRect()
 
       if (this.mouseDown) {
-        // Check viewport edges and return window if outside bounds
+        // Check viewport edges and return window to start position if outside bounds
         if (rect.top < 0 || rect.left < 0 || rect.x < 0 || rect.y < 0 || rect.bottom > window.innerHeight + 200 || rect.right > window.innerWidth + 200) {
           this.mouseDown = false
-          this.style.left = '50px'
-          this.style.top = '50px'
+          this.style.left = '100px'
+          this.style.top = '70px'
         } else {
           this.style.left = event.clientX + this.x + 'px'
           this.style.top = event.clientY + this.y + 'px'

@@ -3,9 +3,7 @@
  */
 import '../my-flip-tile/'
 
-/**
- * Define template.
- */
+// Define template
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
@@ -40,12 +38,6 @@ template.innerHTML = `
       position: absolute;
       max-width: min-content;
       font-size: 15px;
-    }
-
-    #stop-watch { 
-      position: absolute;
-      max-width: min-content;
-      font-size: 15px; 
     }
 
     button {

@@ -59,16 +59,16 @@ template.innerHTML = `
   }
 
   button {
-      background-color: #e6d1c1;
-      font-family: "Times New Roman", Times, serif
-      font-weight: bold;
-      margin: 20px;
-      padding: 5px;
-      border-radius: 3px;
-      width: 20%;
-      border: solid 1px black;
-      box-shadow: 0px 0 3px #433E49;
-    }
+    background-color: #e6d1c1;
+    font-family: "Times New Roman", Times, serif
+    font-weight: bold;
+    margin: 20px;
+    padding: 5px;
+    border-radius: 3px;
+    width: 20%;
+    border: solid 1px black;
+    box-shadow: 0px 0 3px #433E49;
+  }
 
     button:hover {
       box-shadow: 0px 0 10px #433E49;
@@ -124,7 +124,7 @@ customElements.define('my-chat',
     /**
      * Text area where to write messages.
      *
-     * @type {HTMLInputElement} - NO TEXTAREA ELEMENT.
+     * @type {HTMLInputElement} - NO TEXTAREA ELEMENT?
      */
     #textAreaSend
 
@@ -194,7 +194,7 @@ customElements.define('my-chat',
         this.#nameUi.classList.remove('hidden')
       }
 
-      // SEND NAME
+      // Send name
       this.#sendBtn.addEventListener('click', () => {
         if (this.#inputArea.value) {
           this.#userName = this.#inputArea.value
@@ -248,7 +248,7 @@ customElements.define('my-chat',
     }
 
     /**
-     * Search through string to find e.g :) and replace with smiley.
+     * Insert emoji, search through string to find e.g :) and replace with smiley.
      *
      * @param {string} message - The message to search through.
      * @returns {string} - Returns transformed message.

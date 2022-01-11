@@ -87,7 +87,7 @@ customElements.define('my-desktop',
    */
   class extends HTMLElement {
     /**
-     * The desktop template. // TA EVENTUELLT BORT DENNA?
+     * The desktop template.
      *
      * @type {HTMLDivElement}
      */
