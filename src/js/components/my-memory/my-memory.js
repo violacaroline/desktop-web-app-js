@@ -83,9 +83,14 @@ template.innerHTML = `
         <img />
     </my-flip-tile>
 </template>
+<audio id="correct-answer">
+  <source src="/js/components/my-memory/audio/correct-answer.mp3"/>
+</audio>
+<audio id="wrong-answer">
+  <source src="/js/components/my-memory/audio/wrong-answer.mp3"/>
+</audio>
 <p id="attempts" class="hidden"></p>
 <div id="game-board"></div>
-<p id="stop-watch" class="hidden"></p>
 <button id="small-btn">Small 2*2</button><button id="medium-btn">Medium 2*4</button><button id="restart-btn">Restart</button>
 </div>
 `
@@ -134,20 +139,6 @@ customElements.define('my-memory',
     #amountAttempts = 1
 
     /**
-     * Displays stop watch.
-     *
-     * @type {HTMLParagraphElement}
-     */
-    #displayStopWatch
-
-    /**
-     * A stop watch.
-     *
-     * @type {number} - The players used time during a gameround.
-     */
-    #stopWatch
-
-    /**
      * The button representing a small gameboard.
      *
      * @type {HTMLButtonElement}
@@ -181,7 +172,6 @@ customElements.define('my-memory',
       this.#gameBoard = this.shadowRoot.querySelector('#game-board')
       this.#tile = this.shadowRoot.querySelector('#tile')
       this.#displayAttempts = this.shadowRoot.querySelector('#attempts')
-      this.#displayStopWatch = this.shadowRoot.querySelector('#stop-watch')
       this.#mediumBtn = this.shadowRoot.querySelector('#medium-btn')
       this.#smallBtn = this.shadowRoot.querySelector('#small-btn')
       this.#restartBtn = this.shadowRoot.querySelector('#restart-btn')
@@ -256,8 +246,6 @@ customElements.define('my-memory',
 
       // Listen for gameboard changes
       this.#smallBtn.addEventListener('click', () => {
-        clearInterval(this.#stopWatch)
-        this.#displayStopWatch.classList.add('hidden')
         this.#displayAttempts.classList.add('hidden')
         this.#amountAttempts = 1
         this.setAttribute('gameboardsize', 'small')
@@ -265,8 +253,6 @@ customElements.define('my-memory',
         this.populateGameboard()
       })
       this.#mediumBtn.addEventListener('click', () => {
-        clearInterval(this.#stopWatch)
-        this.#displayStopWatch.classList.add('hidden')
         this.#displayAttempts.classList.add('hidden')
         this.#amountAttempts = 1
         this.setAttribute('gameboardsize', 'medium')
@@ -274,8 +260,6 @@ customElements.define('my-memory',
         this.populateGameboard()
       })
       this.#restartBtn.addEventListener('click', () => {
-        clearInterval(this.#stopWatch)
-        this.#displayStopWatch.classList.add('hidden')
         this.#displayAttempts.classList.add('hidden')
         this.#amountAttempts = 1
         this.removeAttribute('gameboardsize')
@@ -287,12 +271,6 @@ customElements.define('my-memory',
       this.#gameBoard.addEventListener('flip', () => {
         const disabledTiles = this.disableTiles()
         this.checkIfMatch(disabledTiles)
-      })
-
-      // Listen for player won event.
-      this.addEventListener('playerWon', () => {
-        this.#displayStopWatch.classList.add('hidden')
-        clearInterval(this.#stopWatch)
       })
     }
 
@@ -361,12 +339,14 @@ customElements.define('my-memory',
             secondTile.setAttribute('hidden', '')
             nameEvent = 'match'
             // Display amount of attempts
+            this.getSoundEffect('#correct-answer')
             this.getAmountAttempts()
           } else {
             firstTile.removeAttribute('face-up')
             secondTile.removeAttribute('face-up')
             enableFlipTiles.push(firstTile, secondTile)
             // Display amount of attempts
+            this.getSoundEffect('#wrong-answer')
             this.getAmountAttempts()
           }
 
@@ -403,15 +383,13 @@ customElements.define('my-memory',
     }
 
     /**
-     * Count players time.
+     * Get sound effects.
+     *
+     * @param {HTMLAudioElement} sound - The type of sound to be played.
      */
-    stopWatch () {
-      let time = 1
-      this.#displayStopWatch.classList.remove('hidden')
-      clearInterval(this.#stopWatch)
-      this.#stopWatch = setInterval(() => {
-        this.#displayStopWatch.textContent = `Used time: ${time++}`
-      }, 1000)
+    getSoundEffect (sound) {
+      const soundEffect = this.shadowRoot.querySelector(sound)
+      soundEffect.play()
     }
   }
 )
