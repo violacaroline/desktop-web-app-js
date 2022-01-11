@@ -14,8 +14,8 @@ template.innerHTML = `
       font-family: "Times New Roman", Times, serif
       font-weight: bold;
       font-size: 20px;
-      max-width: 500px;
-      max-height: 500px;
+      width: 480px;
+      height: 450px;
       text-align: center;
       margin: 0 auto;
     }
@@ -136,7 +136,7 @@ customElements.define('my-memory',
      *
      * @type {number} - The number of attempts.
      */
-    #amountAttempts = 1
+    #amountAttempts = 0
 
     /**
      * The button representing a small gameboard.
@@ -247,24 +247,29 @@ customElements.define('my-memory',
       // Listen for gameboard changes
       this.#smallBtn.addEventListener('click', () => {
         this.#displayAttempts.classList.add('hidden')
-        this.#amountAttempts = 1
+        this.#amountAttempts = 0
         this.setAttribute('gameboardsize', 'small')
         this.#gameBoard.classList.add('small')
         this.populateGameboard()
       })
       this.#mediumBtn.addEventListener('click', () => {
         this.#displayAttempts.classList.add('hidden')
-        this.#amountAttempts = 1
+        this.#amountAttempts = 0
         this.setAttribute('gameboardsize', 'medium')
         this.#gameBoard.classList.remove('small')
         this.populateGameboard()
       })
       this.#restartBtn.addEventListener('click', () => {
         this.#displayAttempts.classList.add('hidden')
-        this.#amountAttempts = 1
+        this.#amountAttempts = 0
         this.removeAttribute('gameboardsize')
         this.#gameBoard.classList.remove('small')
         this.populateGameboard()
+      })
+
+      // Listen for player won.
+      this.addEventListener('playerWon', () => {
+        this.getAmountAttempts()
       })
 
       // Listen for flip events.
@@ -338,16 +343,16 @@ customElements.define('my-memory',
             firstTile.setAttribute('hidden', '')
             secondTile.setAttribute('hidden', '')
             nameEvent = 'match'
-            // Display amount of attempts
+            // Increase amount of attempts
+            this.#amountAttempts++
             this.getSoundEffect('#correct-answer')
-            this.getAmountAttempts()
           } else {
             firstTile.removeAttribute('face-up')
             secondTile.removeAttribute('face-up')
             enableFlipTiles.push(firstTile, secondTile)
-            // Display amount of attempts
+            // Increase amount of attempts
+            this.#amountAttempts++
             this.getSoundEffect('#wrong-answer')
-            this.getAmountAttempts()
           }
 
           this.dispatchEvent(new CustomEvent(nameEvent, {
@@ -358,14 +363,9 @@ customElements.define('my-memory',
           // Player has won
           if (flipTiles.all.every(tile => tile.hidden)) {
             flipTiles.all.forEach(tile => (tile.disabled = true))
-            this.#displayAttempts.classList.add('hidden')
-            this.#amountAttempts = 1
             this.dispatchEvent(new CustomEvent('playerWon', {
               bubbles: true
             }))
-            console.log('You won maddafakka')
-            // Repopulate the board
-            this.populateGameboard()
           } else {
             // Enable tiles.
             enableFlipTiles.forEach(tile => tile.removeAttribute('disabled'))
