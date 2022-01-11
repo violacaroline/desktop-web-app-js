@@ -149,6 +149,7 @@ customElements.define('my-desktop',
       this.#memoryBtn.addEventListener('click', () => {
         const currentWindow = this.#desktopTemplate.appendChild(document.createElement('my-window'))
         currentWindow.appendChild(document.createElement('my-memory'))
+        // EVENT LISTENER FOKUS Z-INDEX, DESKTOP HAR KOLL PÅ ALLA FÖNSTER, VARIABEL ATT HÅLLA KOLL PÅ ZINDEX
       })
 
       // Handle chat button clicks.

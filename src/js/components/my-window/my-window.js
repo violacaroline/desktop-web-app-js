@@ -8,16 +8,24 @@ import '../my-chat/'
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
+  :host {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    height: 500px;
+    width: 500px;
+  }
+
   #container-window {
-   position: absolute;
+   /* position: absolute;
    top: 30px;
-   left: 30px;
+   left: 30px; */
    justify-content: center;
    background-color: #F3E8EB;
    text-align: center;
    padding: 5px;
-   height: 500px;
-   width: 500px;
+   /* height: 500px;
+   width: 500px; */
    margin: auto;
    overflow: hidden;
    border: solid 1px #433E49;
@@ -118,7 +126,7 @@ customElements.define('my-window',
         this.mouseUp(event)
       }, true)
 
-      // FIX THIS SHIT
+      // FIX THIS SHIT // EVENTUELLT PÅ BARA THIS //
       this.#containerWindow.addEventListener('focus', (event) => {
         // ETT WINDOW ELEMENT SKAPAS VID TRYCK PÅ EN IKON PÅ FÖRSTA SIDAN (DESKTOP), SPARAS I EN CONST, DÄRFTER APPENDAS/SLOTTAS KORREKT KOMPONENT BEROENDE PÅ VILKEN IKON SOM TRYCKTES (MEMORY, CHAT, ADVICE) - VERKAR SOM ATT JAG REFERERAR TILL FEL ELEMENT NÄR JAG VILL GE FOKUS?
       })
@@ -139,8 +147,8 @@ customElements.define('my-window',
       // SPARA START POSITION AV FÖNSTER
       // FÖNSTRETS VÄNSTRA TOPPHÖRN - HORISONTELL KOORDINAT FÖR KLICKEVENTET
       // FÖNSTRETS TOPP - VERTIKAL KOORDINAT FÖR KLICKEVENTET
-      this.x = this.#containerWindow.offsetLeft - event.clientX
-      this.y = this.#containerWindow.offsetTop - event.clientY
+      this.x = this.offsetLeft - event.clientX
+      this.y = this.offsetTop - event.clientY
     }
 
     /**
@@ -151,9 +159,11 @@ customElements.define('my-window',
     mouseMoveEvent (event) {
       if (this.mouseDown) {
         // OM MUSKNAPP HÅLLS NED, SÄTT NY POSITION
-        // VART KLICKET HÄNDER + STARTPOSITION
-        this.#containerWindow.style.left = event.clientX + this.x + 'px'
-        this.#containerWindow.style.top = event.clientY + this.y + 'px'
+        // VART KLICKET HÄNDER + STARTPOSITION // ÄR JAG UTANFÖR VIEWPORT RETURN, THIS.GETBOUNDING
+        this.style.left = event.clientX + this.x + 'px'
+        this.style.top = event.clientY + this.y + 'px'
+        const rect = this.getBoundingClientRect()
+        console.log(rect)
       }
     }
 
