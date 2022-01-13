@@ -118,12 +118,9 @@ customElements.define('my-advice',
      */
     async fetchAdvice () {
       const advicePromise = await fetch('https://api.adviceslip.com/advice')
-      const adviceJson = await Promise.resolve(advicePromise.json())
+      const adviceJson = await advicePromise.json()
 
-      const adviceSlip = await Promise.resolve(adviceJson.slip)
-
-      const advice = adviceSlip.advice
-      return advice
+      return adviceJson.slip.advice
     }
   }
 )
