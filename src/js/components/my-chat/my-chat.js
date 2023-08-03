@@ -7,10 +7,10 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
   #container-chat {
-    background-color: #e6d1c1;
+    background-color: #BFD8D2;
     display: block;
-    font-family: "Times New Roman", Times, serif
-    font-weight: bold;
+    font-family: Courier New;
+    font-weight: 200;
     font-size: 20px;
     padding: 10px;
     border-radius: 5px;
@@ -22,6 +22,7 @@ template.innerHTML = `
   }
 
   h1 {
+    font-weight: 200;
     margin-top: 0;
     margin-bottom: 10px;
   }
@@ -39,6 +40,9 @@ template.innerHTML = `
     height: 170px;
     width: 300px;
     resize: none;
+    box-shadow: 0px 0 2px #433E49;
+    border:none;
+    border-radius: 5px;
   }
 
   #text-area-send {
@@ -59,14 +63,15 @@ template.innerHTML = `
   }
 
   button {
-    background-color: #e6d1c1;
-    font-family: "Times New Roman", Times, serif
-    font-weight: bold;
+    background-color: #9dcf93;
+    font-family: Courier New;
+    font-weight: 100;
     margin: 20px;
     padding: 5px;
     border-radius: 3px;
     width: 20%;
-    border: solid 1px black;
+    border: none;
+    cursor: pointer;
     box-shadow: 0px 0 3px #433E49;
   }
 
@@ -83,12 +88,12 @@ template.innerHTML = `
   <p>Talk to me, baby</p>
   <div id="name-ui">
   <input id="input-area" placeholder="Type your name">
-  <button id="send-btn">Send</button>
+  <button id="send-btn">SEND</button>
   </div>
   <div id="message-ui" class="hidden">
   <textarea readonly tabindex="-1" id="text-area"></textarea>
   <textarea placeholder="Type your message" id="text-area-send"></textarea>
-  <button id="send-msg-btn">Send</button>
+  <button id="send-msg-btn">SEND</button>
   </div>  
 </div>
 `

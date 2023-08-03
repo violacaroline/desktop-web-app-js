@@ -8,7 +8,8 @@ template.innerHTML = `
 <style>
     #desktop-template {
       box-sizing: border-box;
-      background-color: #F3E8EB;
+      /* background-color: #F3E8EB; */
+      background-color: #BFD8D2;
       text-align: center;
       font-size: 50px;
       height: 100vh;
@@ -17,19 +18,19 @@ template.innerHTML = `
     }
 
     h1 {
-      font-family: "Times New Roman", Times, serif
-      font-weight: bold;
+      font-family: Courier New;
+      font-weight: 200;
       font-size: 150%;
     }
 
     p {
+      font-family: Courier New;
+      font-weight: 100;
       white-space: nowrap;
     }
 
     #icon-dock {
-      background-color: #DBC1AD;
       white-space: nowrap;
-      border-radius: 30px;
       margin: auto;
       padding: 10px;
       height: 20%;
@@ -39,13 +40,14 @@ template.innerHTML = `
     }
 
     button {
-      border: 2px solid #433E49;
+      border: none;
       border-radius: 50%;
+      cursor: pointer;
       padding: 10px;
       margin: 10px;
       height: 90px;
       width: 90px;
-      box-shadow: 0px 0 5px #433E49;
+      box-shadow: 0px 0 5px grey;
     }
 
     button:hover {
@@ -54,14 +56,17 @@ template.innerHTML = `
 
     #memory-btn {
       background: url("/js/components/my-desktop/images/memory-icon.png") no-repeat center/70%;
+      background-color: #c9719d;
     }
 
     #chat-btn {
       background: url("/js/components/my-desktop/images/chat-icon.png") no-repeat center/70%;
+      background-color: #9dcf93;
     }
 
     #advice-btn {
       background: url("/js/components/my-desktop/images/advice-icon.png") no-repeat center/70%;
+      background-color: #F08A4B;
     }
 
     .hidden {

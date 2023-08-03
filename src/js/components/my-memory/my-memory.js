@@ -7,14 +7,17 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
     #container-memory {
-      background-color: #F3E8EB;
-      font-family: "Times New Roman", Times, serif
-      font-weight: bold;
+      background-color: #BFD8D2;
+      font-family: Courier New;
       font-size: 20px;
       width: 480px;
       height: 450px;
       text-align: center;
       margin: 0 auto;
+    }
+
+    h1 {
+      font-weight: 200;
     }
 
     :host {
@@ -39,13 +42,16 @@ template.innerHTML = `
     }
 
     button {
-      background-color: #e6d1c1;
-      font-family: "Times New Roman", Times, serif
-      font-weight: bold;
+      background-color: #c9719d;
+      font-family: Courier New;
+      font-weight: 300;
+      letter-spacing: 1px;
+      cursor: pointer;
       margin: 20px;
       padding: 5px;
       border-radius: 3px;
-      border: solid 1px black;
+      border: none;
+      box-shadow: 0px 0 3px #433E49;
     }
 
     button:hover {
@@ -81,7 +87,7 @@ template.innerHTML = `
 </audio>
 <div id="game-board"></div>
 <p id="attempts" class="hidden"></p>
-<button id="small-btn">Small 2*2</button><button id="medium-btn">Medium 2*4</button><button id="restart-btn">Large 4*4</button>
+<button id="small-btn">SMALL</button><button id="medium-btn">MEDIUM</button><button id="restart-btn">LARGE</button>
 </div>
 `
 

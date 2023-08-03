@@ -15,7 +15,7 @@ template.innerHTML = `
 
     :host([hidden]) #tile {
       box-shadow: none;
-      background-color: #F3E8EB;
+      background-color: #c9719d;
     }
 
     :host([hidden]) #tile>* {
@@ -38,11 +38,15 @@ template.innerHTML = `
       border-radius: 5px;
       border: none;
       outline: none;
-      background-color: #DBC1AD;
+      background-color: #c9719d;
+    }
+
+    #tile:hover {
+      cursor: pointer;
     }
 
     #tile:focus {
-      box-shadow: 0px 0 10px #433E49;
+      box-shadow: 0px 0 5px #433E49;
     }
 
     #front, #back {
@@ -53,12 +57,12 @@ template.innerHTML = `
     }
 
     #front {
-      background-color: #DBC1AD;
+      background-color: #c9719d;
       display: none;
     }
 
     #back {
-      background-color: #DBC1AD
+      background-color: #c9719d
       display: inline-block;
     }
 

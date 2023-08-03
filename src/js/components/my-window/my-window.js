@@ -16,34 +16,39 @@ template.innerHTML = `
 
   #container-window {
    justify-content: center;
-   background-color: #F3E8EB;
+   background-color: #BFD8D2;
    text-align: center;
    padding: 5px;
    margin: auto;
    overflow: hidden;
-   border: solid 1px #433E49;
+   border: none;
+   border-radius: 5px;
+   box-shadow: 0px 0px 3px grey;
   }
 
-  #menu-bar {
+  /* #menu-bar {
     position: relative;
     background-color: #e6d1c1;
     border: solid 1px #433E49;
     height: 30px;
     margin: 5px;
-  }
+  } */
 
   #close-btn {
+    background-color: #BFD8D2;
+    border-radius: 2px;
     position: absolute;
-    background-color: #e6d1c1;
-    font-family: "Times New Roman", Times, serif;
+    font-family: arial;
+    font-weight: 50;
+    cursor: pointer;
     top: 3px;
-    right: 2px;
+    right: 3px;
     margin: 2px;
-    border: solid 1px;
+    border:none;
   }
 
   button:hover {
-    box-shadow: 0px 0 5px #433E35;
+    box-shadow: 0px 0 2px #433E35;
   }
 </style>
 <div id="container-window">

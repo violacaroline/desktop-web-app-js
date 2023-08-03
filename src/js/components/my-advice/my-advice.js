@@ -7,8 +7,8 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
     #container-advice {
-      background-color: #F3E8EB;
-      font-family: "Times New Roman", Times, serif
+      background-color: #BFD8D2;
+      font-family: Courier New;
       font-size: 20px;
       width: 400px;
       height: 450px;
@@ -18,10 +18,12 @@ template.innerHTML = `
 
     h1 {
       font-size: 40px;
+      font-weight: 200;
     }
 
     #display-advice {
-      background-color: #e6d1c1;
+      background-color: white;
+      color: black; 
       font-size: 23px;
       width: 300px;
       height: 300px;
@@ -29,19 +31,22 @@ template.innerHTML = `
       padding: 50px;
       text-align: center;
       margin: 0 auto;
-      box-shadow: 0px 0 5px #433E49;
-      border: solid 1px black; 
+      box-shadow: 0px 0 2px #433E49;
+      border:none;
+      border-radius: 5px;
     }
 
     button {
-      background-color: #e6d1c1;
-      font-family: "Times New Roman", Times, serif
-      font-weight: bold;
+      background-color: #F08A4B;
+      font-family: Courier New;
+      color: black;
+      cursor: pointer;
+      font-weight: 200;
       margin: 20px;
       padding: 5px;
       border-radius: 3px;
-      width: 20%;
-      border: solid 1px black;
+      width: 30%;
+      border: none;
       box-shadow: 0px 0 3px #433E49;
     }
 
@@ -53,7 +58,7 @@ template.innerHTML = `
 <div id="container-advice">
     <h1>Advice Wizard</h1>
     <div id="display-advice"></div>
-    <button id="get-advice-btn">Get advice</button>
+    <button id="get-advice-btn">GET ADVICE</button>
 </div>
 `
 
@@ -108,7 +113,7 @@ customElements.define('my-advice',
      */
     async displayAdvice () {
       const advice = await this.fetchAdvice()
-      this.#displayAdvice.textContent = `"${advice}"`
+      this.#displayAdvice.textContent = `${advice}`
     }
 
     /**
