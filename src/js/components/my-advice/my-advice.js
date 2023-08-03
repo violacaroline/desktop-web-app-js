@@ -112,7 +112,10 @@ customElements.define('my-advice',
      * Display advice.
      */
     async displayAdvice () {
-      const advice = await this.fetchAdvice()
+      let advice = await this.fetchAdvice()
+      if (advice[advice.length - 1] === '.') {
+        advice = advice.slice(0, advice.length - 1)
+      }
       this.#displayAdvice.textContent = `${advice}`
     }
 
