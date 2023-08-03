@@ -55,17 +55,18 @@ template.innerHTML = `
     }
 
     #memory-btn {
-      background: url("/js/components/my-desktop/images/memory-icon.png") no-repeat center/70%;
+      /* background: url("/js/components/my-desktop/images/memory-icon.png") no-repeat center/70%; */
+      background: url("/images/memory-icon.png") no-repeat center/70%;
       background-color: #c9719d;
     }
 
     #chat-btn {
-      background: url("/js/components/my-desktop/images/chat-icon.png") no-repeat center/70%;
+      background: url("/images/chat-icon.png") no-repeat center/70%;
       background-color: #9dcf93;
     }
 
     #advice-btn {
-      background: url("/js/components/my-desktop/images/advice-icon.png") no-repeat center/70%;
+      background: url("/images/advice-icon.png") no-repeat center/70%;
       background-color: #F08A4B;
     }
 

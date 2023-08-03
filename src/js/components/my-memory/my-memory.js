@@ -69,7 +69,8 @@ template.innerHTML = `
 
     my-flip-tile::part(tile-back) {
       border-width: 3px;
-      background: url("/js/components/my-memory/images/m.png") no-repeat center/70%;
+      background: url("/images/m.png") no-repeat center/70%;
+      /* background: url("/images/m.png") no-repeat center/70%; */
     }
 </style>
 <div slot="content" id="container-memory">
@@ -80,10 +81,10 @@ template.innerHTML = `
     </my-flip-tile>
 </template>
 <audio id="correct-answer">
-  <source src="/js/components/my-memory/audio/correct-answer.mp3"/>
+  <source src="/audio/correct-answer.mp3"/>
 </audio>
 <audio id="wrong-answer">
-  <source src="/js/components/my-memory/audio/wrong-answer.mp3"/>
+  <source src="/audio/wrong-answer.mp3"/>
 </audio>
 <div id="game-board"></div>
 <p id="attempts" class="hidden"></p>
@@ -118,7 +119,7 @@ customElements.define('my-memory',
      *
      * @type {string}
      */
-    #relativePathImages = '/js/components/my-memory/images/'
+    #relativePathImages = '/images/'
 
     /**
      * Displays amount of attempts per gameround
