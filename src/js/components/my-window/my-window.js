@@ -26,13 +26,11 @@ template.innerHTML = `
    box-shadow: 0px 0px 3px grey;
   }
 
-  /* #menu-bar {
+  #menu-bar {
     position: relative;
-    background-color: #e6d1c1;
-    border: solid 1px #433E49;
     height: 30px;
     margin: 5px;
-  } */
+  }
 
   #close-btn {
     background-color: #BFD8D2;
@@ -108,7 +106,7 @@ customElements.define('my-window',
      * Called when element is inserted in DOM.
      */
     connectedCallback () {
-      this.#menuBar.addEventListener('mousedown', (event) => {
+      this.#containerWindow.addEventListener('mousedown', (event) => {
         this.mouseDownEvent(event)
       })
 
